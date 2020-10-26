@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
@@ -28,14 +28,14 @@ public class MainActivity extends AppCompatActivity {
 
         if(id == R.id.inicio){
 
+            Intent i = new Intent(this, MainActivity.class);
+
+            startActivity(i);
+
             return true;
         }
 
         if(id == R.id.login){
-
-            Intent i = new Intent(this, Login.class);
-
-            startActivity(i);
 
             return true;
         }

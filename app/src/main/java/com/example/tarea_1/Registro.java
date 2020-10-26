@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+public class Registro extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_registro);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(id == R.id.inicio){
 
+            Intent i = new Intent(this, MainActivity.class);
+
+            startActivity(i);
+
             return true;
         }
 
@@ -41,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if(id == R.id.registro){
-
-            Intent i = new Intent(this, Registro.class);
-
-            startActivity(i);
 
             return true;
         }
