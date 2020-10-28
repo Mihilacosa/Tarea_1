@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class Login extends AppCompatActivity {
 
@@ -13,6 +15,21 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Button Registrarse = (Button) findViewById(R.id.RegistroInicio);
+        Registrarse.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Registrarse();
+            }
+        });
+    }
+
+    public void Registrarse(){
+        Intent i = new Intent(this, Registro.class);
+
+        startActivity(i);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){

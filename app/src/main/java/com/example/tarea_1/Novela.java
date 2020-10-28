@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class Novela extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_novela);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
@@ -23,13 +22,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-
     @Override public boolean onOptionsItemSelected(MenuItem opciones_menu){
 
         int id = opciones_menu.getItemId();
 
         if(id == R.id.inicio){
+
+            Intent i = new Intent(this, MainActivity.class);
+
+            startActivity(i);
 
             return true;
         }
