@@ -1,26 +1,15 @@
 package com.example.tarea_1;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
-import java.util.Locale;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TITULO = "com.com.example.tarea_1.TITULO";
@@ -30,10 +19,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CardView Card1 = (CardView) findViewById(R.id.card1);
-        CardView Card2 = (CardView) findViewById(R.id.card2);
-        CardView Card3 = (CardView) findViewById(R.id.card3);
-        CardView Card4 = (CardView) findViewById(R.id.card4);
+        CardView Card1 = findViewById(R.id.card1);
+        CardView Card2 = findViewById(R.id.card2);
+        CardView Card3 = findViewById(R.id.card3);
+        CardView Card4 = findViewById(R.id.card4);
 
         Card1.setOnClickListener(this);
         Card2.setOnClickListener(this);
@@ -41,33 +30,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Card4.setOnClickListener(this);
     }
 
-    public void Novela1(){
-        @SuppressLint("WrongViewCast") TextView titulo = (TextView) findViewById(R.id.Titulo);
-        String Titulo = titulo.getText().toString();
-
-        Intent i = new Intent(this, Novela.class);
-
-        i.putExtra(TITULO, Titulo);
-
-        startActivity(i);
-    }
-
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         TextView titulo;
         
         switch (v.getId()){
             case R.id.card1:
-               titulo = (TextView) findViewById(R.id.Titulo);
+                titulo = findViewById(R.id.Titulo);
                 break;
             case R.id.card2:
-                titulo = (TextView) findViewById(R.id.Titulo2);
+                titulo = findViewById(R.id.Titulo2);
                 break;
             case R.id.card3:
-                titulo = (TextView) findViewById(R.id.Titulo3);
+                titulo = findViewById(R.id.Titulo3);
                 break;
             case R.id.card4:
-                titulo = (TextView) findViewById(R.id.Titulo4);
+                titulo = findViewById(R.id.Titulo4);
                 break;
 
             default:
