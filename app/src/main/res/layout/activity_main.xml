@@ -53,11 +53,10 @@
                         android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView22"
                         android:layout_width="match_parent"
-                        android:layout_height="57dp"
+                        android:layout_height="108dp"
                         android:layout_marginTop="8dp"
-                        android:layout_weight="1"
                         android:text="@string/rese_a"
                         android:textSize="18sp" />
 
