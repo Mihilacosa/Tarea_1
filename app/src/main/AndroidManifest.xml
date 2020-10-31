@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tarea_1">
-        <activity android:name=".Novela"></activity>
+        <activity android:name=".Novela"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".Registro" />
         <activity android:name=".Login" />
         <activity android:name=".MainActivity">

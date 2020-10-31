@@ -1,19 +1,50 @@
 package com.example.tarea_1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TITULO = "com.com.example.tarea_1.TITULO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        CardView Card = (CardView) findViewById(R.id.card1);
+
+        Card.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Novela1();
+            }
+        });
+    }
+
+    public void Novela1(){
+        @SuppressLint("WrongViewCast") TextView titulo = (TextView) findViewById(R.id.Titulo);
+        String titulo1 = titulo.getText().toString();
+
+        Intent i = new Intent(this, Novela.class);
+
+        i.putExtra(TITULO, titulo1);
+
+        startActivity(i);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
@@ -22,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-
-
 
     @Override public boolean onOptionsItemSelected(MenuItem opciones_menu){
 

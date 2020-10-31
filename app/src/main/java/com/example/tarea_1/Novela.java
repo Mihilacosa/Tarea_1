@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class Novela extends AppCompatActivity {
 
@@ -13,6 +14,11 @@ public class Novela extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novela);
+
+        Intent i = getIntent();
+        String text = i.getStringExtra(MainActivity.TITULO);
+        TextView Titulo_novela = (TextView) findViewById(R.id.Titulo_dif);
+        Titulo_novela.setText(text);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
