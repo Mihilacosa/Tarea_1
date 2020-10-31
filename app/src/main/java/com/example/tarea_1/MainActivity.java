@@ -22,7 +22,7 @@ import android.widget.TextView;
 import java.io.ByteArrayOutputStream;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TITULO = "com.com.example.tarea_1.TITULO";
 
     @Override
@@ -30,24 +30,54 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CardView Card = (CardView) findViewById(R.id.card1);
+        CardView Card1 = (CardView) findViewById(R.id.card1);
+        CardView Card2 = (CardView) findViewById(R.id.card2);
+        CardView Card3 = (CardView) findViewById(R.id.card3);
+        CardView Card4 = (CardView) findViewById(R.id.card4);
 
-        Card.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Novela1();
-            }
-        });
+        Card1.setOnClickListener(this);
+        Card2.setOnClickListener(this);
+        Card3.setOnClickListener(this);
+        Card4.setOnClickListener(this);
     }
 
     public void Novela1(){
         @SuppressLint("WrongViewCast") TextView titulo = (TextView) findViewById(R.id.Titulo);
-        String titulo1 = titulo.getText().toString();
+        String Titulo = titulo.getText().toString();
 
         Intent i = new Intent(this, Novela.class);
 
-        i.putExtra(TITULO, titulo1);
+        i.putExtra(TITULO, Titulo);
+
+        startActivity(i);
+    }
+
+    @Override
+    public void onClick(View v) {
+        TextView titulo;
+        
+        switch (v.getId()){
+            case R.id.card1:
+               titulo = (TextView) findViewById(R.id.Titulo);
+                break;
+            case R.id.card2:
+                titulo = (TextView) findViewById(R.id.Titulo2);
+                break;
+            case R.id.card3:
+                titulo = (TextView) findViewById(R.id.Titulo3);
+                break;
+            case R.id.card4:
+                titulo = (TextView) findViewById(R.id.Titulo4);
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
+        }
+        String Titulo = titulo.getText().toString();
+        
+        Intent i = new Intent(this, Novela.class);
+
+        i.putExtra(TITULO, Titulo);
 
         startActivity(i);
     }
