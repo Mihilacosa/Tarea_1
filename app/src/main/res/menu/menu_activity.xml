@@ -7,16 +7,29 @@
     <item android:id="@+id/search"
         android:icon="@android:drawable/ic_menu_search"
         android:title=""
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/inicio"
-        android:title="Inicio"/>
+        android:title="@string/inicio_menu"/>
 
     <item android:id="@+id/login"
-        android:title="Inicio de sesión"/>
+        android:title="@string/inicio_de_sesi_n_menu"/>
 
     <item android:id="@+id/registro"
-        android:title="Registrarse"/>
-
-</menu>
+        android:title="@string/registrarse_menu"/>
+    <!---
+        <item android:id="@+id/idioma"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title=""
+            android:orderInCategory="2"
+            app:showAsAction="ifRoom" >
+            <menu>
+                <item android:id="@+id/espanol"
+                    android:title="@string/espa_ol" />
+                <item android:id="@+id/ingles"
+                    android:title="@string/ingles" />
+            </menu>
+        </item>
+-->
+    </menu>

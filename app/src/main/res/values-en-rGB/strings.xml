@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Task_1</string>
+    <string name="titulo">Title</string>
+    <string name="rese_a">Review</string>
+    <string name="portada1">Cover 1</string>
+    <string name="portada2">Cover 2</string>
+    <string name="portada3">Cover 3</string>
+    <string name="portada4">Cover 4</string>
+    <string name="titulo_2">Title 2</string>
+    <string name="reseña2">Review 2</string>
+    <string name="titulo_3">Title 3</string>
+    <string name="reseña3">Review 3</string>
+    <string name="titulo_4">Title 4</string>
+    <string name="reseña4">Review 4</string>
+    <string name="titulo_novela">Novel title</string>
+    <string name="portada_novela">Novel cover</string>
+    <string name="rese_a_novela">Review</string>
+    <string name="contenido_reseña">Review content</string>
+    <string name="capitulos">Chapter</string>
+    <string name="registrarse">Sing in</string>
+    <string name="inicio_de_sesi_n">Log in</string>
+    <string name="email">Email</string>
+    <string name="contrase_a">Password</string>
+    <string name="soy_humano">I\'m human</string>
+    <string name="iniciar_sesi_n">Log In</string>
+    <string name="no_tienes_cuanta">don\'t have an account?</string>
+    <string name="crear_cuenta">Create account</string>
+    <string name="nombre">Name</string>
+    <string name="contrase_a_registro">Password</string>
+    <string name="confirmar_contrase_a">"Confirm password "</string>
+    <string name="sexo">Gender</string>
+    <string name="hombre">Male</string>
+    <string name="mujer">Female</string>
+    <string name="otro">Other</string>
+    <string name="crear_cuenta_registro">Create account</string>
+    <string name="tienes_cuenta">" Do you have an account?"</string>
+    <string name="bt_iniciar_sesi_n_registro">Log in</string>
+    <string name="inicio_menu">Main</string>
+    <string name="inicio_de_sesi_n_menu">Log in</string>
+    <string name="registrarse_menu">Sing in</string>
+    <string name="ingles">English</string>
+    <string name="espa_ol">Spanish</string>
+</resources>

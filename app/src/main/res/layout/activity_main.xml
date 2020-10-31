@@ -66,6 +66,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp">
@@ -80,8 +81,8 @@
                     android:layout_width="76dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/dragonmarket"
-                    android:contentDescription="@string/portada2" />
+                    android:contentDescription="@string/portada2"
+                    app:srcCompat="@drawable/dragonmarket" />
 
                 <LinearLayout
                     android:layout_width="161dp"
@@ -108,6 +109,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp">
@@ -122,8 +124,8 @@
                     android:layout_width="267dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/pxs"
-                    android:contentDescription="@string/portada3" />
+                    android:contentDescription="@string/portada3"
+                    app:srcCompat="@drawable/pxs" />
 
                 <LinearLayout
                     android:layout_width="350dp"
@@ -150,6 +152,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp">
@@ -164,8 +167,8 @@
                     android:layout_width="61dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/atg"
-                    android:contentDescription="@string/portada4" />
+                    android:contentDescription="@string/portada4"
+                    app:srcCompat="@drawable/atg" />
 
                 <LinearLayout
                     android:layout_width="141dp"

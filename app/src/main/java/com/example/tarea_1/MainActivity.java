@@ -1,10 +1,14 @@
 package com.example.tarea_1;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TITULO = "com.com.example.tarea_1.TITULO";
@@ -80,7 +85,17 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
+/*
+        if(id == R.id.espanol){
 
+            return true;
+        }
+
+        if(id == R.id.ingles){
+
+            return true;
+        }
+*/
         return super.onOptionsItemSelected(opciones_menu);
     }
 }
