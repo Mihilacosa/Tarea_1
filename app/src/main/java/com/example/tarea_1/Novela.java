@@ -16,9 +16,9 @@ public class Novela extends AppCompatActivity {
         setContentView(R.layout.activity_novela);
 
         Intent i = getIntent();
-        String text = i.getStringExtra(MainActivity.TITULO);
+        String id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
         TextView Titulo_novela = (TextView) findViewById(R.id.Titulo_dif);
-        Titulo_novela.setText(text);
+        Titulo_novela.setText(id_novela);
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){

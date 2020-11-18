@@ -19,25 +19,38 @@
         android:paddingBottom="40dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/card1"
+            android:id="@+id/card0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="16dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/Portada1"
-                    android:layout_width="61dp"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/atg"
-                    android:contentDescription="@string/portada1" />
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada0"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="146dp"
@@ -46,18 +59,76 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/Titulo"
+                        android:id="@+id/titulo0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/titulo"
-                        android:textSize="30sp" />
+                        android:text="titulo"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/textView22"
                         android:layout_width="match_parent"
                         android:layout_height="108dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/rese_a"
+                        android:text="cosas"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="146dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titulo1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="titulo"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="8dp"
+                        android:text="cosas"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -69,42 +140,58 @@
             android:id="@+id/card2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="76dp"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/portada2"
-                    app:srcCompat="@drawable/dragonmarket" />
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="161dp"
+                    android:layout_width="146dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/Titulo2"
+                        android:id="@+id/titulo2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/titulo_2"
-                        android:textSize="30sp" />
+                        android:text="titulo"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="108dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/reseña2"
+                        android:text="cosas"
                         android:textSize="18sp" />
+
                 </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -112,42 +199,58 @@
             android:id="@+id/card3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="267dp"
+                <LinearLayout
+                    android:layout_width="55dp"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/portada3"
-                    app:srcCompat="@drawable/pxs" />
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="350dp"
+                    android:layout_width="146dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/Titulo3"
+                        android:id="@+id/titulo3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/titulo_3"
-                        android:textSize="30sp" />
+                        android:text="titulo"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/textView6"
                         android:layout_width="match_parent"
                         android:layout_height="108dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/reseña3"
+                        android:text="cosas"
                         android:textSize="18sp" />
+
                 </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -155,43 +258,353 @@
             android:id="@+id/card4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="164dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="61dp"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/portada4"
-                    app:srcCompat="@drawable/atg" />
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="141dp"
+                    android:layout_width="146dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/Titulo4"
+                        android:id="@+id/titulo4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/titulo_4"
-                        android:textSize="30sp" />
+                        android:text="titulo"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/textView8"
                         android:layout_width="match_parent"
                         android:layout_height="108dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/reseña4"
+                        android:text="cosas"
                         android:textSize="18sp" />
 
                 </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="146dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titulo5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="titulo"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="8dp"
+                        android:text="cosas"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada6"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="146dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titulo6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="titulo"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="8dp"
+                        android:text="cosas"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="146dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titulo7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="titulo"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="8dp"
+                        android:text="cosas"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card8"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="146dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titulo8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="titulo"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="8dp"
+                        android:text="cosas"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
+
+            <TextView
+                android:id="@+id/id_novela9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                tools:visibility="invisible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/portada9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/dragonmarket" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="146dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titulo9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="titulo"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="108dp"
+                        android:layout_marginTop="8dp"
+                        android:text="cosas"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

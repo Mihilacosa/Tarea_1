@@ -41,4 +41,5 @@
     <string name="registrarse_menu">Registrarse</string>
     <string name="espa_ol">Español</string>
     <string name="ingles">Ingles</string>
+    <string name="usuario">Usuario</string>
 </resources>

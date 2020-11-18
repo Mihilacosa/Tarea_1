@@ -41,4 +41,5 @@
     <string name="registrarse_menu">Sing in</string>
     <string name="ingles">English</string>
     <string name="espa_ol">Spanish</string>
+    <string name="usuario">Username</string>
 </resources>
