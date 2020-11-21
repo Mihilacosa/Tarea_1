@@ -6,9 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
@@ -49,6 +55,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView id_novela7;
     private TextView id_novela8;
     private TextView id_novela9;
+
+    private String resena0;
+    private String resena1;
+    private String resena2;
+    private String resena3;
+    private String resena4;
+    private String resena5;
+    private String resena6;
+    private String resena7;
+    private String resena8;
+    private String resena9;
 
     private ImageView portada0;
     private ImageView portada1;
@@ -123,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         portada7 = (ImageView) findViewById(R.id.portada7);
         portada8 = (ImageView) findViewById(R.id.portada8);
         portada9 = (ImageView) findViewById(R.id.portada9);
-
+        registerForContextMenu(findViewById(R.id.main));
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -197,61 +214,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        Bitmap port = StringToBitMap(jsonObject.getString("titulo"));
+                        Bitmap port = StringToBitMap(jsonObject.getString("portada"));
 
                         switch (i) {
                             case 0:
-                                titulo_novela0.setText(jsonObject.getString("titulo"));
+                                titulo_novela0.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela0.setText(jsonObject.getString("id_novela"));
+                                resena0 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada0.setImageBitmap(port);
                                 break;
                             case 1:
-                                titulo_novela1.setText(jsonObject.getString("titulo"));
+                                titulo_novela1.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela1.setText(jsonObject.getString("id_novela"));
+                                resena1 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada1.setImageBitmap(port);
                                 break;
                             case 2:
-                                titulo_novela2.setText(jsonObject.getString("titulo"));
+                                titulo_novela2.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela2.setText(jsonObject.getString("id_novela"));
+                                resena2 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada2.setImageBitmap(port);
                                 break;
                             case 3:
-                                titulo_novela3.setText(jsonObject.getString("titulo"));
+                                titulo_novela3.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela3.setText(jsonObject.getString("id_novela"));
+                                resena3 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada3.setImageBitmap(port);
                                 break;
                             case 4:
-                                titulo_novela4.setText(jsonObject.getString("titulo"));
+                                titulo_novela4.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela4.setText(jsonObject.getString("id_novela"));
+                                resena4 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada4.setImageBitmap(port);
                                 break;
                             case 5:
-                                titulo_novela5.setText(jsonObject.getString("titulo"));
+                                titulo_novela5.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela5.setText(jsonObject.getString("id_novela"));
+                                resena5 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada5.setImageBitmap(port);
                                 break;
                             case 6:
-                                titulo_novela6.setText(jsonObject.getString("titulo"));
+                                titulo_novela6.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela6.setText(jsonObject.getString("id_novela"));
+                                resena6 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada6.setImageBitmap(port);
                                 break;
                             case 7:
-                                titulo_novela7.setText(jsonObject.getString("titulo"));
+                                titulo_novela7.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela7.setText(jsonObject.getString("id_novela"));
+                                resena7 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada7.setImageBitmap(port);
                                 break;
                             case 8:
-                                titulo_novela8.setText(jsonObject.getString("titulo"));
+                                titulo_novela8.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela8.setText(jsonObject.getString("id_novela"));
+                                resena8 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada8.setImageBitmap(port);
                                 break;
                             case 9:
-                                titulo_novela9.setText(jsonObject.getString("titulo"));
+                                titulo_novela9.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela9.setText(jsonObject.getString("id_novela"));
+                                resena9 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 portada9.setImageBitmap(port);
                                 break;
                         }
-                    } catch (JSONException e){
+                    } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -259,12 +286,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "ERROR DE CONEXIÓN", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ERROR DE CARGA DE NOVELAS", Toast.LENGTH_SHORT).show();
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
     }
+
+    //Menu context
+
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        switch (v.getId()){
+            case R.id.card0:
+                menu.setHeaderTitle(this.titulo_novela0.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena0);
+                break;
+            case R.id.card1:
+                menu.setHeaderTitle(this.titulo_novela1.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena1);
+                break;
+            case R.id.card2:
+                menu.setHeaderTitle(this.titulo_novela2.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena2);
+                break;
+            case R.id.card3:
+                menu.setHeaderTitle(this.titulo_novela3.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena3);
+                break;
+            case R.id.card4:
+                menu.setHeaderTitle(this.titulo_novela4.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena4);
+                break;
+            case R.id.card5:
+                menu.setHeaderTitle(this.titulo_novela5.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena5);
+                break;
+            case R.id.card6:
+                menu.setHeaderTitle(this.titulo_novela6.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena6);
+                break;
+            case R.id.card7:
+                menu.setHeaderTitle(this.titulo_novela7.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena7);
+                break;
+            case R.id.card8:
+                menu.setHeaderTitle(this.titulo_novela8.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena8);
+                break;
+            case R.id.card9:
+                menu.setHeaderTitle(this.titulo_novela9.getText());
+                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena9);
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + v.getId());
+        }
+
+        inflater.inflate(R.menu.menu_contextual, menu);
+    }
+
+    //Menu normal
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);

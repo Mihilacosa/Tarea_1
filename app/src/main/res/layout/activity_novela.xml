@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,22 +7,23 @@
     android:layout_height="wrap_content"
     android:gravity="center|top"
     android:orientation="vertical"
-    android:paddingLeft="34dp"
-    android:paddingRight="34dp"
-    tools:context=".Novela">
+    tools:context=".Novela" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="34dp"
+        android:paddingRight="34dp">
 
         <TextView
             android:id="@+id/Titulo_dif"
-            android:layout_width="wrap_content"
+            android:layout_width="344dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/titulo_novela"
             android:textSize="30sp" />
 
@@ -33,11 +35,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/Portada_novela_selec"
                 android:layout_width="wrap_content"
-                android:layout_height="245dp"
-                app:srcCompat="@drawable/dragonmarket"
-                android:contentDescription="@string/portada_novela" />
+                android:layout_height="191dp"
+                android:contentDescription="@string/portada_novela"
+                app:srcCompat="@drawable/dragonmarket" />
 
         </LinearLayout>
 
@@ -57,7 +59,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/Resena_novela_selec"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/contenido_reseña" />
@@ -78,11 +80,11 @@
                 android:text="@string/capitulos"
                 android:textSize="18sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
+            <ListView
+                android:id="@+id/Lista_capitulos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp" />
+                android:layout_height="259dp"
+                android:layout_marginBottom="40dp" />
 
         </LinearLayout>
     </LinearLayout>
