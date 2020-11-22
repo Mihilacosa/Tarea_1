@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class Capitulo extends AppCompatActivity {
     private ArrayList<Integer> Capitulos_id = new ArrayList<>();
     private int posicion = 0;
     private Integer id_cap;
+    private ScrollView scroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,13 @@ public class Capitulo extends AppCompatActivity {
         Button Anterior = findViewById(R.id.Anterior);
         Button Indice = findViewById(R.id.Indice);
         Button Siguiente = findViewById(R.id.Siguiente);
+
+        Button Anterior2 = findViewById(R.id.Anterior2);
+        Button Indice2 = findViewById(R.id.Indice2);
+        Button Siguiente2 = findViewById(R.id.Siguiente2);
+
+        scroll = findViewById(R.id.Cap_scroll);
+
 
         Intent a = getIntent();
         id_novela = a.getStringExtra(Novela.ID_NOVELA);
@@ -93,6 +102,31 @@ public class Capitulo extends AppCompatActivity {
                 }else{
                     Anterior.setEnabled(true);
                 }
+
+                scroll.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
+
+        Anterior2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                if(posicion != cap_max){
+                    Siguiente2.setEnabled(true);
+                }
+
+                posicion = posicion - 1;
+                id_cap = Capitulos_id.get(posicion);
+                id_capitulo =  String.valueOf(Capitulos_id.get(posicion));
+                CargarCapitulo("https://tnowebservice.000webhostapp.com/Capitulo_seleccionado.php?id_capitulo=" + id_capitulo);
+
+                if(posicion == 0){
+                    Anterior2.setEnabled(false);
+                }else{
+                    Anterior2.setEnabled(true);
+                }
+
+                scroll.fullScroll(ScrollView.FOCUS_UP);
             }
         });
 
@@ -113,10 +147,41 @@ public class Capitulo extends AppCompatActivity {
                 if(posicion != 0){
                     Anterior.setEnabled(true);
                 }
+
+                scroll.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
+
+        Siguiente2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                posicion = posicion + 1;
+                id_cap = Capitulos_id.get(posicion);
+                id_capitulo =  String.valueOf(Capitulos_id.get(posicion));
+                CargarCapitulo("https://tnowebservice.000webhostapp.com/Capitulo_seleccionado.php?id_capitulo=" + id_capitulo);
+
+                if(posicion == cap_max){
+                    Siguiente2.setEnabled(false);
+                }else{
+                    Siguiente2.setEnabled(true);
+                }
+
+                if(posicion != 0){
+                    Anterior2.setEnabled(true);
+                }
+
+                scroll.fullScroll(ScrollView.FOCUS_UP);
             }
         });
 
         Indice.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                VolverNovela();
+            }
+        });
+
+        Indice2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 VolverNovela();

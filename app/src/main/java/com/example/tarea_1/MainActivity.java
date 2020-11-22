@@ -24,12 +24,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLDecoder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -193,17 +197,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(i);
     }
 
-   public Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
-    }
-
     private void Cargar(String URL) {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
@@ -214,71 +207,69 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     try {
                         jsonObject = response.getJSONObject(i);
 
-                        Bitmap port = StringToBitMap(jsonObject.getString("portada"));
-
                         switch (i) {
                             case 0:
                                 titulo_novela0.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela0.setText(jsonObject.getString("id_novela"));
                                 resena0 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada0.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada0);
                                 break;
                             case 1:
                                 titulo_novela1.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela1.setText(jsonObject.getString("id_novela"));
                                 resena1 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada1.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada1);
                                 break;
                             case 2:
                                 titulo_novela2.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela2.setText(jsonObject.getString("id_novela"));
                                 resena2 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada2.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada2);
                                 break;
                             case 3:
                                 titulo_novela3.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela3.setText(jsonObject.getString("id_novela"));
                                 resena3 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada3.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada3);
                                 break;
                             case 4:
                                 titulo_novela4.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela4.setText(jsonObject.getString("id_novela"));
                                 resena4 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada4.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada4);
                                 break;
                             case 5:
                                 titulo_novela5.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela5.setText(jsonObject.getString("id_novela"));
                                 resena5 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada5.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada5);
                                 break;
                             case 6:
                                 titulo_novela6.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela6.setText(jsonObject.getString("id_novela"));
                                 resena6 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada6.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada6);
                                 break;
                             case 7:
                                 titulo_novela7.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela7.setText(jsonObject.getString("id_novela"));
                                 resena7 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada7.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada7);
                                 break;
                             case 8:
                                 titulo_novela8.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela8.setText(jsonObject.getString("id_novela"));
                                 resena8 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada8.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada8);
                                 break;
                             case 9:
                                 titulo_novela9.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela9.setText(jsonObject.getString("id_novela"));
                                 resena9 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                portada9.setImageBitmap(port);
+                                Picasso.get().load(jsonObject.getString("portada")).into(portada9);
                                 break;
                         }
-                    } catch (JSONException | UnsupportedEncodingException e){
+                    } catch (JSONException | IOException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -294,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     //Menu context
-
+/*
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
@@ -348,7 +339,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         inflater.inflate(R.menu.menu_contextual, menu);
     }
-
+*/
     //Menu normal
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){

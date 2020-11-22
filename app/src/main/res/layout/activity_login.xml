@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.116" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/Email_login"
         android:layout_width="288dp"
         android:layout_height="50dp"
         android:autofillHints=""
@@ -72,7 +72,7 @@
         app:layout_constraintVertical_bias="0.417" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/Contrasena_login"
         android:layout_width="288dp"
         android:layout_height="50dp"
         android:ems="10"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.597" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bLogin"
         android:layout_width="288dp"
         android:layout_height="wrap_content"
         android:text="@string/iniciar_sesi_n"

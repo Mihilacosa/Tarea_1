@@ -1,6 +1,7 @@
 package com.example.tarea_1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,12 +41,16 @@ public class Novela extends AppCompatActivity {
     public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
     private TextView Titulo_novela;
     private TextView resena;
+    private ImageView portada;
     private ListView Lista_caps;
     private List<String> Lista = new ArrayList<>();
     private ArrayAdapter<String> Adaptador;
     private ArrayList<Integer> Capitulos_id = new ArrayList<>();
     private String id_capitulo;
     private String id_novela;
+
+    ArrayList<String> lista_capitulos;
+    RecyclerView recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +65,13 @@ public class Novela extends AppCompatActivity {
             id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
         }
 
-
+        CargarNovela("https://tnowebservice.000webhostapp.com/Novela_seleccionada.php?id_novela=" + id_novela);
+        CargarCapitulos("https://tnowebservice.000webhostapp.com/Lista_caps.php?id_novela=" + id_novela);
 
         Titulo_novela = findViewById(R.id.Titulo_dif);
         resena = findViewById(R.id.Resena_novela_selec);
+        portada = findViewById(R.id.Portada_novela_selec);
 
-        CargarNovela("https://tnowebservice.000webhostapp.com/Novela_seleccionada.php?id_novela=" + id_novela);
-        CargarCapitulos("https://tnowebservice.000webhostapp.com/Lista_caps.php?id_novela=" + id_novela);
 
         Lista_caps = findViewById(R.id.Lista_capitulos);
 
@@ -105,6 +112,7 @@ public class Novela extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         Titulo_novela.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                         resena.setText(jsonObject.getString("resena"));
+                        Picasso.get().load(jsonObject.getString("portada")).into(portada);
                     } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

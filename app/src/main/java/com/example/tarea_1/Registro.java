@@ -44,10 +44,10 @@ public class Registro extends AppCompatActivity {
         });
 
 
-        NuevoUsuario = (EditText)findViewById(R.id.CrearUsuario);
-        NuevoEmail = (EditText)findViewById(R.id.CrearEmail);
-        NuevaContrasena = (EditText)findViewById(R.id.CrearContrasena1);
-        NuevaContrasena2 = (EditText)findViewById(R.id.ConbContrasena1);
+        NuevoUsuario = findViewById(R.id.CrearUsuario);
+        NuevoEmail = findViewById(R.id.CrearEmail);
+        NuevaContrasena = findViewById(R.id.CrearContrasena1);
+        NuevaContrasena2 = findViewById(R.id.ConbContrasena1);
 
 
         Button CrearCuenta = (Button) findViewById(R.id.bCrearCuenta);
@@ -81,7 +81,7 @@ public class Registro extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), "Exito", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Cuenta creada", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
