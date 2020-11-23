@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -48,14 +51,29 @@ public class Novela extends AppCompatActivity {
     private ArrayList<Integer> Capitulos_id = new ArrayList<>();
     private String id_capitulo;
     private String id_novela;
-
+/*
     ArrayList<String> lista_capitulos;
     RecyclerView recycler;
+*/
+
+    private  String usuario = "";
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novela);
+
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
+            usuario = datos_usu.getString("usuario", "");
+            if (usuario != "") {
+                setTitle("Hola " + usuario);
+            }else{
+
+            }
+        }
 
         Intent i = getIntent();
 
@@ -163,6 +181,19 @@ public class Novela extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);
 
+        MenuItem itemlt = mimenu.findItem(R.id.logout);
+        MenuItem itemln = mimenu.findItem(R.id.login);
+        MenuItem itemr = mimenu.findItem(R.id.registro);
+
+        if (usuario != "") {
+            itemlt.setVisible(true);
+            itemln.setVisible(false);
+            itemr.setVisible(false);
+        }else{
+            itemln.setVisible(true);
+            itemr.setVisible(true);
+        }
+
         return true;
     }
 
@@ -191,6 +222,16 @@ public class Novela extends AppCompatActivity {
         if(id == R.id.registro){
 
             Intent i = new Intent(this, Registro.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
+        if(id == R.id.logout){
+
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, MainActivity.class);
 
             startActivity(i);
 

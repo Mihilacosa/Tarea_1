@@ -1,7 +1,10 @@
 package com.example.tarea_1;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -24,6 +27,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -82,6 +87,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView portada8;
     private ImageView portada9;
 
+    private  String usuario = "";
+    private FirebaseAuth mAuth;
+
+    MenuItem itemlt;
+    MenuItem itemln;
+    MenuItem itemr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +101,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         Cargar("https://tnowebservice.000webhostapp.com/UltimasActualizaciones.php");
+
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
+            usuario = datos_usu.getString("usuario", "");
+            if (usuario != "") {
+                setTitle("Hola " + usuario);
+            }else{
+
+            }
+        }
 
         CardView Card0 = findViewById(R.id.card0);
         CardView Card1 = findViewById(R.id.card1);
@@ -344,6 +367,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);
+
+        itemlt = mimenu.findItem(R.id.logout);
+        itemln = mimenu.findItem(R.id.login);
+        itemr = mimenu.findItem(R.id.registro);
+
+        if (usuario != "") {
+            itemlt.setVisible(true);
+            itemln.setVisible(false);
+            itemr.setVisible(false);
+        }else{
+            itemln.setVisible(true);
+            itemr.setVisible(true);
+        }
+
         return true;
     }
 
@@ -352,6 +389,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = opciones_menu.getItemId();
 
         if(id == R.id.inicio){
+
+            Intent i = new Intent(this, MainActivity.class);
+
+            startActivity(i);
 
             return true;
         }
@@ -370,6 +411,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent i = new Intent(this, Registro.class);
 
             startActivity(i);
+
+            return true;
+        }
+
+        if(id == R.id.logout){
+
+            FirebaseAuth.getInstance().signOut();
+            setTitle("Tarea_1");
+            opciones_menu.setVisible(false);
+            itemln.setVisible(true);
+            itemr.setVisible(true);
 
             return true;
         }

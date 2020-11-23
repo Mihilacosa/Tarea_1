@@ -3,7 +3,9 @@ package com.example.tarea_1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.internal.GetServiceRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -76,6 +79,10 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + Email);
+
+                            Intent i = new Intent(Login.this, MainActivity.class);
+
+                            startActivity(i);
                         } else {
                             Toast.makeText(Login.this, "Email o contraseña incorrectos",
                                     Toast.LENGTH_SHORT).show();
@@ -94,11 +101,15 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
+
+                SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = datos_usu.edit();
+
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        id_usuario = jsonObject.getString("id_usuario");
-                        usuario = jsonObject.getString("usuario");
+                        editor.putString("usuario", jsonObject.getString("usuario"));
+                        editor.commit();
                     } catch (JSONException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

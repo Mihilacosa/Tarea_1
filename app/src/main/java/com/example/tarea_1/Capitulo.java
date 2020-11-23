@@ -2,7 +2,9 @@ package com.example.tarea_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,10 +42,24 @@ public class Capitulo extends AppCompatActivity {
     private Integer id_cap;
     private ScrollView scroll;
 
+    private  String usuario = "";
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capitulo);
+
+        mAuth = FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
+            usuario = datos_usu.getString("usuario", "");
+            if (usuario != "") {
+                setTitle("Hola " + usuario);
+            }else{
+
+            }
+        }
 
         Button Anterior = findViewById(R.id.Anterior);
         Button Indice = findViewById(R.id.Indice);
@@ -228,6 +245,19 @@ public class Capitulo extends AppCompatActivity {
 
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);
 
+        MenuItem itemlt = mimenu.findItem(R.id.logout);
+        MenuItem itemln = mimenu.findItem(R.id.login);
+        MenuItem itemr = mimenu.findItem(R.id.registro);
+
+        if (usuario != "") {
+            itemlt.setVisible(true);
+            itemln.setVisible(false);
+            itemr.setVisible(false);
+        }else{
+            itemln.setVisible(true);
+            itemr.setVisible(true);
+        }
+
         return true;
     }
 
@@ -256,6 +286,16 @@ public class Capitulo extends AppCompatActivity {
         if(id == R.id.registro){
 
             Intent i = new Intent(this, Registro.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
+        if(id == R.id.logout){
+
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, MainActivity.class);
 
             startActivity(i);
 
