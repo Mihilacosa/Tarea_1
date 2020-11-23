@@ -1,9 +1,12 @@
 package com.example.tarea_1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +21,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +36,14 @@ public class Registro extends AppCompatActivity {
     private EditText NuevoEmail;
     private EditText NuevaContrasena;
     private EditText NuevaContrasena2;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        mAuth = FirebaseAuth.getInstance();
 
         Button InicioSesionRegisatro = (Button) findViewById(R.id.InicioRegistro);
         InicioSesionRegisatro.setOnClickListener(new View.OnClickListener(){
@@ -54,12 +64,54 @@ public class Registro extends AppCompatActivity {
         CrearCuenta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                String usuario =  NuevoUsuario.getText().toString();
+                String email = NuevoEmail.getText().toString();
                 String Contrasena = NuevaContrasena.getText().toString();
                 String Contrasena2 = NuevaContrasena2.getText().toString();
+
+                if(TextUtils.isEmpty(usuario)){
+                    NuevoUsuario.setError("El usuario debe cotener minimo un carácter");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(email)){
+                    NuevoEmail.setError("El email es obligatorio");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(Contrasena)){
+                    NuevaContrasena.setError("la contraseña no puede estar vacia");
+                    return;
+                }
+
+                if(Contrasena.length() < 6){
+                    NuevaContrasena.setError("la contraseña debe tener como minimo 6 caracteres");
+                    return;
+                }
+
                 if(Contrasena.equals(Contrasena2)) {
-                    EnvioInfoCrearCuenta("https://tnowebservice.000webhostapp.com/NuevoUsuario.php");
-                }else{
-                    Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    NuevaContrasena2.setError("No coincide con la contraseña");
+                    return;
+                }
+
+                if(Contrasena.equals(Contrasena2)) {
+
+                    mAuth.createUserWithEmailAndPassword(email, Contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Registro.this, "Cuenta creada", Toast.LENGTH_SHORT).show();
+                                EnvioInfoCrearCuenta("https://tnowebservice.000webhostapp.com/NuevoUsuario.php");
+                                FirebaseAuth.getInstance().signOut();
+
+                                Intent i = new Intent(Registro.this, Login.class);
+
+                                startActivity(i);
+                            } else {
+                                Toast.makeText(Registro.this, "El email esta siendo usado", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });

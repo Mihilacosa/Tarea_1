@@ -1,5 +1,6 @@
 package com.example.tarea_1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +21,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,11 +43,14 @@ public class Login extends AppCompatActivity {
     private Button Login;
     private String id_usuario;
     private String usuario;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
 
         Button Registrarse = (Button) findViewById(R.id.RegistroInicio);
         Registrarse.setOnClickListener(new View.OnClickListener(){
@@ -59,33 +68,29 @@ public class Login extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php");
+                String Email = email.getText().toString();
+                String Contrasena = contrasena.getText().toString();
+
+                mAuth.signInWithEmailAndPassword(Email, Contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + Email);
+                        } else {
+                            Toast.makeText(Login.this, "Email o contraseña incorrectos",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+
+
             }
         });
     }
 
     private void EnvioLogin(String URL) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), "Exito", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("email", email.getText().toString());
-                parametros.put("contrasena", contrasena.getText().toString());
-                return parametros;
-            }
-        };
-
-      /*  JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
@@ -107,12 +112,6 @@ public class Login extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(jsonArrayRequest);
-
-        if(id_usuario != "si"){
-            Toast.makeText(getApplicationContext(), "Se ha iniciado sesion", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(), "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     public void Registrarse(){
