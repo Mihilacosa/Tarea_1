@@ -40,4 +40,9 @@
     <string name="espa_ol">Español</string>
     <string name="ingles">Ingles</string>
     <string name="portada1">Portada 1</string>
+    <string name="cosas">Cosas</string>
+    <string name="titulo_capitulo">Titulo capitulo</string>
+    <string name="contenido_capitulo">Contenido capitulo</string>
+    <string name="indice">Indice</string>
+    <string name="nombre">Nombre</string>
 </resources>

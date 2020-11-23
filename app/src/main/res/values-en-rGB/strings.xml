@@ -42,4 +42,8 @@
     <string name="ingles">English</string>
     <string name="espa_ol">Spanish</string>
     <string name="usuario">Username</string>
+    <string name="cosas">Things</string>
+    <string name="titulo_capitulo">Chapter title</string>
+    <string name="contenido_capitulo">Chapter contents</string>
+    <string name="indice">Index</string>
 </resources>

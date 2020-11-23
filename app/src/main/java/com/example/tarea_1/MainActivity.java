@@ -1,20 +1,13 @@
 package com.example.tarea_1;
 
 import android.annotation.SuppressLint;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -36,9 +28,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLDecoder;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -64,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView id_novela7;
     private TextView id_novela8;
     private TextView id_novela9;
-
+/*
     private String resena0;
     private String resena1;
     private String resena2;
@@ -75,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String resena7;
     private String resena8;
     private String resena9;
-
+*/
     private ImageView portada0;
     private ImageView portada1;
     private ImageView portada2;
@@ -88,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView portada9;
 
     private  String usuario = "";
-    private FirebaseAuth mAuth;
 
     MenuItem itemlt;
     MenuItem itemln;
@@ -102,14 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Cargar("https://tnowebservice.000webhostapp.com/UltimasActualizaciones.php");
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
             SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
             usuario = datos_usu.getString("usuario", "");
-            if (usuario != "") {
+            if (!usuario.equals("")) {
                 setTitle("Hola " + usuario);
-            }else{
-
             }
         }
 
@@ -135,38 +121,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Card8.setOnClickListener(this);
         Card9.setOnClickListener(this);
 
-        titulo_novela0 = (TextView) findViewById(R.id.titulo0);
-        titulo_novela1 = (TextView) findViewById(R.id.titulo1);
-        titulo_novela2 = (TextView) findViewById(R.id.titulo2);
-        titulo_novela3 = (TextView) findViewById(R.id.titulo3);
-        titulo_novela4 = (TextView) findViewById(R.id.titulo4);
-        titulo_novela5 = (TextView) findViewById(R.id.titulo5);
-        titulo_novela6 = (TextView) findViewById(R.id.titulo6);
-        titulo_novela7 = (TextView) findViewById(R.id.titulo7);
-        titulo_novela8 = (TextView) findViewById(R.id.titulo8);
-        titulo_novela9 = (TextView) findViewById(R.id.titulo9);
+        titulo_novela0 = findViewById(R.id.titulo0);
+        titulo_novela1 = findViewById(R.id.titulo1);
+        titulo_novela2 = findViewById(R.id.titulo2);
+        titulo_novela3 = findViewById(R.id.titulo3);
+        titulo_novela4 = findViewById(R.id.titulo4);
+        titulo_novela5 = findViewById(R.id.titulo5);
+        titulo_novela6 = findViewById(R.id.titulo6);
+        titulo_novela7 = findViewById(R.id.titulo7);
+        titulo_novela8 = findViewById(R.id.titulo8);
+        titulo_novela9 = findViewById(R.id.titulo9);
 
-        id_novela0 = (TextView) findViewById(R.id.id_novela0);
-        id_novela1 = (TextView) findViewById(R.id.id_novela1);
-        id_novela2 = (TextView) findViewById(R.id.id_novela2);
-        id_novela3 = (TextView) findViewById(R.id.id_novela3);
-        id_novela4 = (TextView) findViewById(R.id.id_novela4);
-        id_novela5 = (TextView) findViewById(R.id.id_novela5);
-        id_novela6 = (TextView) findViewById(R.id.id_novela6);
-        id_novela7 = (TextView) findViewById(R.id.id_novela7);
-        id_novela8 = (TextView) findViewById(R.id.id_novela8);
-        id_novela9 = (TextView) findViewById(R.id.id_novela9);
+        id_novela0 = findViewById(R.id.id_novela0);
+        id_novela1 = findViewById(R.id.id_novela1);
+        id_novela2 = findViewById(R.id.id_novela2);
+        id_novela3 = findViewById(R.id.id_novela3);
+        id_novela4 = findViewById(R.id.id_novela4);
+        id_novela5 = findViewById(R.id.id_novela5);
+        id_novela6 = findViewById(R.id.id_novela6);
+        id_novela7 = findViewById(R.id.id_novela7);
+        id_novela8 = findViewById(R.id.id_novela8);
+        id_novela9 = findViewById(R.id.id_novela9);
 
-        portada0 = (ImageView) findViewById(R.id.portada0);
-        portada1 = (ImageView) findViewById(R.id.portada1);
-        portada2 = (ImageView) findViewById(R.id.portada2);
-        portada3 = (ImageView) findViewById(R.id.portada3);
-        portada4 = (ImageView) findViewById(R.id.portada4);
-        portada5 = (ImageView) findViewById(R.id.portada5);
-        portada6 = (ImageView) findViewById(R.id.portada6);
-        portada7 = (ImageView) findViewById(R.id.portada7);
-        portada8 = (ImageView) findViewById(R.id.portada8);
-        portada9 = (ImageView) findViewById(R.id.portada9);
+        portada0 = findViewById(R.id.portada0);
+        portada1 = findViewById(R.id.portada1);
+        portada2 = findViewById(R.id.portada2);
+        portada3 = findViewById(R.id.portada3);
+        portada4 = findViewById(R.id.portada4);
+        portada5 = findViewById(R.id.portada5);
+        portada6 = findViewById(R.id.portada6);
+        portada7 = findViewById(R.id.portada7);
+        portada8 = findViewById(R.id.portada8);
+        portada9 = findViewById(R.id.portada9);
         registerForContextMenu(findViewById(R.id.main));
     }
 
@@ -234,61 +220,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             case 0:
                                 titulo_novela0.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela0.setText(jsonObject.getString("id_novela"));
-                                resena0 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena0 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada0);
                                 break;
                             case 1:
                                 titulo_novela1.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela1.setText(jsonObject.getString("id_novela"));
-                                resena1 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena1 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada1);
                                 break;
                             case 2:
                                 titulo_novela2.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela2.setText(jsonObject.getString("id_novela"));
-                                resena2 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena2 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada2);
                                 break;
                             case 3:
                                 titulo_novela3.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela3.setText(jsonObject.getString("id_novela"));
-                                resena3 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena3 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada3);
                                 break;
                             case 4:
                                 titulo_novela4.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela4.setText(jsonObject.getString("id_novela"));
-                                resena4 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena4 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada4);
                                 break;
                             case 5:
                                 titulo_novela5.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela5.setText(jsonObject.getString("id_novela"));
-                                resena5 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena5 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada5);
                                 break;
                             case 6:
                                 titulo_novela6.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela6.setText(jsonObject.getString("id_novela"));
-                                resena6 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena6 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada6);
                                 break;
                             case 7:
                                 titulo_novela7.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela7.setText(jsonObject.getString("id_novela"));
-                                resena7 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena7 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada7);
                                 break;
                             case 8:
                                 titulo_novela8.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela8.setText(jsonObject.getString("id_novela"));
-                                resena8 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena8 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada8);
                                 break;
                             case 9:
                                 titulo_novela9.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
                                 id_novela9.setText(jsonObject.getString("id_novela"));
-                                resena9 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
+                                //resena9 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
                                 Picasso.get().load(jsonObject.getString("portada")).into(portada9);
                                 break;
                         }
@@ -372,7 +358,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         itemln = mimenu.findItem(R.id.login);
         itemr = mimenu.findItem(R.id.registro);
 
-        if (usuario != "") {
+        if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
             itemr.setVisible(false);

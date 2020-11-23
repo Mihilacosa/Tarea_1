@@ -1,9 +1,5 @@
 package com.example.tarea_1;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,12 +30,9 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Integer.parseInt;
 
 public class Novela extends AppCompatActivity {
     public static final String ID_CAPITULO = "com.com.example.tarea_1.ID_CAPITULO";
@@ -57,18 +52,17 @@ public class Novela extends AppCompatActivity {
 */
 
     private  String usuario = "";
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novela);
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
             SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
             usuario = datos_usu.getString("usuario", "");
-            if (usuario != "") {
+            if (!usuario.equals("")) {
                 setTitle("Hola " + usuario);
             }else{
 
@@ -185,7 +179,7 @@ public class Novela extends AppCompatActivity {
         MenuItem itemln = mimenu.findItem(R.id.login);
         MenuItem itemr = mimenu.findItem(R.id.registro);
 
-        if (usuario != "") {
+        if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
             itemr.setVisible(false);

@@ -22,7 +22,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:text="TextView"
+            android:text="@string/titulo_capitulo"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -44,7 +44,8 @@
                 android:id="@+id/Anterior"
                 android:layout_width="64dp"
                 android:layout_height="50dp"
-                app:icon="@android:drawable/ic_media_rew" />
+                app:icon="@android:drawable/ic_media_rew"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/Indice"
@@ -54,13 +55,15 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Indice" />
+                android:text="@string/indice"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/Siguiente"
                 android:layout_width="64dp"
                 android:layout_height="50dp"
-                app:icon="@android:drawable/ic_media_ff" />
+                app:icon="@android:drawable/ic_media_ff"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 
@@ -73,7 +76,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="25dp"
             android:layout_marginRight="25dp"
-            android:text="TextView"
+            android:text="@string/contenido_capitulo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +99,8 @@
                 android:id="@+id/Anterior2"
                 android:layout_width="64dp"
                 android:layout_height="50dp"
-                app:icon="@android:drawable/ic_media_rew" />
+                app:icon="@android:drawable/ic_media_rew"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/Indice2"
@@ -106,13 +110,15 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:text="Indice" />
+                android:text="@string/indice"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/Siguiente2"
                 android:layout_width="64dp"
                 android:layout_height="50dp"
-                app:icon="@android:drawable/ic_media_ff" />
+                app:icon="@android:drawable/ic_media_ff"
+                tools:ignore="ButtonStyle" />
 
         </LinearLayout>
 
