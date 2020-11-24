@@ -88,10 +88,12 @@ public class Capitulo extends AppCompatActivity {
 
         if(posicion == 0){
             Anterior.setEnabled(false);
+            Anterior2.setEnabled(false);
         }
 
         if(posicion == cap_max){
             Siguiente.setEnabled(false);
+            Siguiente2.setEnabled(false);
         }
 
         Titulo = findViewById(R.id.Titulo_cap);

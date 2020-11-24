@@ -1,6 +1,8 @@
 package com.example.tarea_1;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -18,12 +20,17 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,11 +105,11 @@ public class Registro extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(Registro.this, "Cuenta creada", Toast.LENGTH_SHORT).show();
                                 EnvioInfoCrearCuenta("https://tnowebservice.000webhostapp.com/NuevoUsuario.php");
-                                FirebaseAuth.getInstance().signOut();
 
-                                Intent i = new Intent(Registro.this, Login.class);
+                                EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + email);
+
+                                Intent i = new Intent(Registro.this, MainActivity.class);
 
                                 startActivity(i);
                             } else {
@@ -114,6 +121,35 @@ public class Registro extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void EnvioLogin(String URL) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject jsonObject = null;
+
+                SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = datos_usu.edit();
+
+                for (int i = 0; i < response.length(); i++){
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        editor.putString("usuario", jsonObject.getString("usuario"));
+                        editor.commit();
+                    } catch (JSONException e){
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(), "ERROR AL COMPROBAR DATOS", Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
     }
 
     //Moverse a iniciar sesión
