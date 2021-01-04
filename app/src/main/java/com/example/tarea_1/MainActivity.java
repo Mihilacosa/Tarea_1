@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,60 +30,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity{
     public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
-    private TextView titulo_novela0;
-    private TextView titulo_novela1;
-    private TextView titulo_novela2;
-    private TextView titulo_novela3;
-    private TextView titulo_novela4;
-    private TextView titulo_novela5;
-    private TextView titulo_novela6;
-    private TextView titulo_novela7;
-    private TextView titulo_novela8;
-    private TextView titulo_novela9;
-
-    private TextView id_novela0;
-    private TextView id_novela1;
-    private TextView id_novela2;
-    private TextView id_novela3;
-    private TextView id_novela4;
-    private TextView id_novela5;
-    private TextView id_novela6;
-    private TextView id_novela7;
-    private TextView id_novela8;
-    private TextView id_novela9;
-/*
-    private String resena0;
-    private String resena1;
-    private String resena2;
-    private String resena3;
-    private String resena4;
-    private String resena5;
-    private String resena6;
-    private String resena7;
-    private String resena8;
-    private String resena9;
-*/
-    private ImageView portada0;
-    private ImageView portada1;
-    private ImageView portada2;
-    private ImageView portada3;
-    private ImageView portada4;
-    private ImageView portada5;
-    private ImageView portada6;
-    private ImageView portada7;
-    private ImageView portada8;
-    private ImageView portada9;
 
     private  String usuario = "";
+    String titulo, id, imagen;
 
     MenuItem itemlt;
     MenuItem itemln;
     MenuItem itemr;
 
+    ArrayList<ListaNovelas> listaNovelas = new ArrayList<>();
+    RecyclerView recyclerNovelas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,115 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
-        CardView Card0 = findViewById(R.id.card0);
-        CardView Card1 = findViewById(R.id.card1);
-        CardView Card2 = findViewById(R.id.card2);
-        CardView Card3 = findViewById(R.id.card3);
-        CardView Card4 = findViewById(R.id.card4);
-        CardView Card5 = findViewById(R.id.card5);
-        CardView Card6 = findViewById(R.id.card6);
-        CardView Card7 = findViewById(R.id.card7);
-        CardView Card8 = findViewById(R.id.card8);
-        CardView Card9 = findViewById(R.id.card9);
-
-        Card0.setOnClickListener(this);
-        Card1.setOnClickListener(this);
-        Card2.setOnClickListener(this);
-        Card3.setOnClickListener(this);
-        Card4.setOnClickListener(this);
-        Card5.setOnClickListener(this);
-        Card6.setOnClickListener(this);
-        Card7.setOnClickListener(this);
-        Card8.setOnClickListener(this);
-        Card9.setOnClickListener(this);
-
-        titulo_novela0 = findViewById(R.id.titulo0);
-        titulo_novela1 = findViewById(R.id.titulo1);
-        titulo_novela2 = findViewById(R.id.titulo2);
-        titulo_novela3 = findViewById(R.id.titulo3);
-        titulo_novela4 = findViewById(R.id.titulo4);
-        titulo_novela5 = findViewById(R.id.titulo5);
-        titulo_novela6 = findViewById(R.id.titulo6);
-        titulo_novela7 = findViewById(R.id.titulo7);
-        titulo_novela8 = findViewById(R.id.titulo8);
-        titulo_novela9 = findViewById(R.id.titulo9);
-
-        id_novela0 = findViewById(R.id.id_novela0);
-        id_novela1 = findViewById(R.id.id_novela1);
-        id_novela2 = findViewById(R.id.id_novela2);
-        id_novela3 = findViewById(R.id.id_novela3);
-        id_novela4 = findViewById(R.id.id_novela4);
-        id_novela5 = findViewById(R.id.id_novela5);
-        id_novela6 = findViewById(R.id.id_novela6);
-        id_novela7 = findViewById(R.id.id_novela7);
-        id_novela8 = findViewById(R.id.id_novela8);
-        id_novela9 = findViewById(R.id.id_novela9);
-
-        portada0 = findViewById(R.id.portada0);
-        portada1 = findViewById(R.id.portada1);
-        portada2 = findViewById(R.id.portada2);
-        portada3 = findViewById(R.id.portada3);
-        portada4 = findViewById(R.id.portada4);
-        portada5 = findViewById(R.id.portada5);
-        portada6 = findViewById(R.id.portada6);
-        portada7 = findViewById(R.id.portada7);
-        portada8 = findViewById(R.id.portada8);
-        portada9 = findViewById(R.id.portada9);
         registerForContextMenu(findViewById(R.id.main));
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View v) {
-        TextView id_novela;
-        
-        switch (v.getId()){
-            case R.id.card0:
-                id_novela = findViewById(R.id.id_novela0);
-                break;
-            case R.id.card1:
-                id_novela = findViewById(R.id.id_novela1);
-                break;
-            case R.id.card2:
-                id_novela = findViewById(R.id.id_novela2);
-                break;
-            case R.id.card3:
-                id_novela = findViewById(R.id.id_novela3);
-                break;
-            case R.id.card4:
-                id_novela = findViewById(R.id.id_novela4);
-                break;
-            case R.id.card5:
-                id_novela = findViewById(R.id.id_novela5);
-                break;
-            case R.id.card6:
-                id_novela = findViewById(R.id.id_novela6);
-                break;
-            case R.id.card7:
-                id_novela = findViewById(R.id.id_novela7);
-                break;
-            case R.id.card8:
-                id_novela = findViewById(R.id.id_novela8);
-                break;
-            case R.id.card9:
-                id_novela = findViewById(R.id.id_novela9);
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + v.getId());
-        }
-
-        String id_N = id_novela.getText().toString();
-        
-        Intent i = new Intent(this, Novela.class);
-
-        i.putExtra(ID_NOVELA, id_N);
-
-        startActivity(i);
-    }
-
     private void Cargar(String URL) {
-
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -215,78 +74,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
+                        titulo = URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8");
+                        id = jsonObject.getString("id_novela");
+                        imagen = jsonObject.getString("portada");
+                        listaNovelas.add(new ListaNovelas(titulo, id, imagen));
 
-                        switch (i) {
-                            case 0:
-                                titulo_novela0.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela0.setText(jsonObject.getString("id_novela"));
-                                //resena0 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada0);
-                                break;
-                            case 1:
-                                titulo_novela1.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela1.setText(jsonObject.getString("id_novela"));
-                                //resena1 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada1);
-                                break;
-                            case 2:
-                                titulo_novela2.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela2.setText(jsonObject.getString("id_novela"));
-                                //resena2 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada2);
-                                break;
-                            case 3:
-                                titulo_novela3.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela3.setText(jsonObject.getString("id_novela"));
-                                //resena3 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada3);
-                                break;
-                            case 4:
-                                titulo_novela4.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela4.setText(jsonObject.getString("id_novela"));
-                                //resena4 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada4);
-                                break;
-                            case 5:
-                                titulo_novela5.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela5.setText(jsonObject.getString("id_novela"));
-                                //resena5 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada5);
-                                break;
-                            case 6:
-                                titulo_novela6.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela6.setText(jsonObject.getString("id_novela"));
-                                //resena6 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada6);
-                                break;
-                            case 7:
-                                titulo_novela7.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela7.setText(jsonObject.getString("id_novela"));
-                                //resena7 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada7);
-                                break;
-                            case 8:
-                                titulo_novela8.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela8.setText(jsonObject.getString("id_novela"));
-                                //resena8 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada8);
-                                break;
-                            case 9:
-                                titulo_novela9.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                                id_novela9.setText(jsonObject.getString("id_novela"));
-                                //resena9 = (URLDecoder.decode(jsonObject.getString("resena"), "UTF-8"));
-                                Picasso.get().load(jsonObject.getString("portada")).into(portada9);
-                                break;
-                        }
-                    } catch (JSONException | IOException e){
+                    } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+                recyclerNovelas = (RecyclerView) findViewById(R.id.ReyclerId);
+                recyclerNovelas.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+                AdaptadorNovelas adapter = new AdaptadorNovelas(listaNovelas);
+                adapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(),"Seleccionado: " + listaNovelas.get(recyclerNovelas.getChildAdapterPosition(v)).getTitulo(), Toast.LENGTH_SHORT).show();
+
+                        String id_N = listaNovelas.get(recyclerNovelas.getChildAdapterPosition(v)).getId();
+
+                        Intent i = new Intent(MainActivity.this, Novela.class);
+
+                        i.putExtra(ID_NOVELA, id_N);
+
+                        startActivity(i);
+                    }
+                });
+                recyclerNovelas.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "ERROR DE CARGA DE NOVELAS", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "ERROR DE CARGA DE NOVELA", Toast.LENGTH_SHORT).show();
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);

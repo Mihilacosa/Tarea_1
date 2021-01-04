@@ -38,8 +38,7 @@
                 android:id="@+id/Portada_novela_selec"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/portada_novela"
-                app:srcCompat="@drawable/id_37" />
+                android:contentDescription="@string/portada_novela" />
 
         </LinearLayout>
 
