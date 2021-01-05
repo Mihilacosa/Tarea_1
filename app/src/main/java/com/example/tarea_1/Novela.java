@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,15 +43,12 @@ public class Novela extends AppCompatActivity {
     private TextView resena;
     private ImageView portada;
     private ListView Lista_caps;
-    private List<String> Lista = new ArrayList<>();
-    private ArrayAdapter<String> Adaptador;
+    private ArrayList<ListaCapitulos> Lista = new ArrayList<>();
     private ArrayList<Integer> Capitulos_id = new ArrayList<>();
     private String id_capitulo;
     private String id_novela;
-/*
-    ArrayList<String> lista_capitulos;
-    RecyclerView recycler;
-*/
+
+    RecyclerView recyclerCapitulos;
 
     private  String usuario = "";
 
@@ -84,21 +83,6 @@ public class Novela extends AppCompatActivity {
         resena = findViewById(R.id.Resena_novela_selec);
         portada = findViewById(R.id.Portada_novela_selec);
 
-
-        Lista_caps = findViewById(R.id.Lista_capitulos);
-
-        Lista_caps.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                for (int i = 0; i < Capitulos_id.size(); i++){
-                    if(i == position){
-                        int id_cap = Capitulos_id.get(i);
-                        id_capitulo = String.valueOf(id_cap);
-                        mandar_id_capitulo();
-                    }
-                }
-            }
-        });
     }
 
     //carga novela y capitulos
@@ -148,15 +132,30 @@ public class Novela extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        Integer id_cap = Integer.valueOf(jsonObject.getString("id_capitulo"));
-                        Capitulos_id.add(id_cap);
-                        Lista.add("Capitulo: " + jsonObject.getString("num_capitulo") + " - " + URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
-                        Adaptador = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,Lista);
-                        Lista_caps.setAdapter(Adaptador);
+                        String capitulo = "Capitulo: " + jsonObject.getString("num_capitulo") + " - " + URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8");
+                        String id_cap = jsonObject.getString("id_capitulo");
+                        Integer id_cap_int = Integer.valueOf(jsonObject.getString("id_capitulo"));
+                        Capitulos_id.add(id_cap_int);
+                        Lista.add(new ListaCapitulos(capitulo, id_cap));
                     } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+                recyclerCapitulos = (RecyclerView) findViewById(R.id.RecyclerCapitulos);
+                recyclerCapitulos.setLayoutManager(new LinearLayoutManager(Novela.this));
+
+                AdaptadorCapitulos adapter = new AdaptadorCapitulos(Lista);
+
+                adapter.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        id_capitulo = Lista.get(recyclerCapitulos.getChildAdapterPosition(v)).getId();
+
+                        mandar_id_capitulo();
+                    }
+                });
+
+                recyclerCapitulos.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
             @Override

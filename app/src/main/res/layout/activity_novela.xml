@@ -79,12 +79,10 @@
                 android:text="@string/capitulos"
                 android:textSize="18sp" />
 
-            <ListView
-                android:id="@+id/Lista_capitulos"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RecyclerCapitulos"
                 android:layout_width="match_parent"
-                android:layout_height="259dp"
-                android:layout_marginBottom="40dp"
-                tools:ignore="NestedScrolling" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </LinearLayout>
