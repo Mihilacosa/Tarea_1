@@ -46,4 +46,5 @@
     <string name="titulo_capitulo">Chapter title</string>
     <string name="contenido_capitulo">Chapter contents</string>
     <string name="indice">Index</string>
+    <string name="portada_de_la_novela">Novel cover</string>
 </resources>

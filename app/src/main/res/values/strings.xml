@@ -15,7 +15,7 @@
     <string name="portada_novela">Portada novela</string>
     <string name="rese_a_novela">Reseña</string>
     <string name="contenido_reseña">Contenido reseña</string>
-    <string name="capitulos">Capitulos</string>
+    <string name="capitulos">Capítulos</string>
     <string name="registrarse">Registrarse</string>
     <string name="inicio_de_sesi_n">Inicio de sesión</string>
     <string name="email">Email</string>
@@ -45,4 +45,5 @@
     <string name="contenido_capitulo">Contenido capitulo</string>
     <string name="indice">Indice</string>
     <string name="nombre">Nombre</string>
+    <string name="portada_de_la_novela">Portada de la novela</string>
 </resources>

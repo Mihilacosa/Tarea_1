@@ -107,7 +107,7 @@ public class Novela extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         Titulo_novela.setText(new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8"));
-                        resena.setText(jsonObject.getString("resena"));
+                        resena.setText(new String(jsonObject.getString("resena").getBytes("ISO-8859-1"), "UTF-8"));
                         Picasso.get().load(jsonObject.getString("portada")).into(portada);
                     } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

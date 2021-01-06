@@ -222,7 +222,7 @@ public class Capitulo extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        Titulo.setText("Capitulo: " + jsonObject.getString("num_capitulo") + " - " + new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8"));
+                        Titulo.setText("Capítulo: " + jsonObject.getString("num_capitulo") + " - " + new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8"));
                         Contenido.setText(new String(jsonObject.getString("contenido").getBytes("ISO-8859-1"), "UTF-8"));
                     } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

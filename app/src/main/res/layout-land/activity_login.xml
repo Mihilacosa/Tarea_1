@@ -2,7 +2,6 @@
 
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -116,13 +115,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40dp"
                 android:layout_marginRight="40dp"
-                android:text="@string/registrarse" />
+                android:text="@string/registrarse"
+                tools:ignore="ButtonStyle" />
 
             <Button
                 android:id="@+id/bLogin"
                 android:layout_width="288dp"
                 android:layout_height="wrap_content"
-                android:text="@string/iniciar_sesi_n" />
+                android:text="@string/iniciar_sesi_n"
+                tools:ignore="ButtonStyle" />
         </LinearLayout>
 
     </LinearLayout>
