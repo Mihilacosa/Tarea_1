@@ -106,7 +106,7 @@ public class Novela extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        Titulo_novela.setText(URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8"));
+                        Titulo_novela.setText(new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8"));
                         resena.setText(jsonObject.getString("resena"));
                         Picasso.get().load(jsonObject.getString("portada")).into(portada);
                     } catch (JSONException | UnsupportedEncodingException e){
@@ -132,7 +132,7 @@ public class Novela extends AppCompatActivity {
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        String capitulo = "Capitulo: " + jsonObject.getString("num_capitulo") + " - " + URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8");
+                        String capitulo = "Capitulo: " + jsonObject.getString("num_capitulo") + " - " + new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8");
                         String id_cap = jsonObject.getString("id_capitulo");
                         Integer id_cap_int = Integer.valueOf(jsonObject.getString("id_capitulo"));
                         Capitulos_id.add(id_cap_int);

@@ -22,7 +22,7 @@
     <string name="contrase_a">Contraseña</string>
     <string name="soy_humano">Soy Humano</string>
     <string name="iniciar_sesi_n">Iniciar sesión</string>
-    <string name="no_tienes_cuanta">No tienes cuanta?</string>
+    <string name="no_tienes_cuanta">¿No tienes cuanta?</string>
     <string name="crear_cuenta">Crear cuenta</string>
     <string name="usuario">Usuario</string>
     <string name="contrase_a_registro">Contraseña</string>
@@ -32,7 +32,7 @@
     <string name="mujer">Mujer</string>
     <string name="otro">Otro</string>
     <string name="crear_cuenta_registro">Crear cuenta</string>
-    <string name="tienes_cuenta">Tienes cuenta?</string>
+    <string name="tienes_cuenta">¿Tienes cuenta?</string>
     <string name="bt_iniciar_sesi_n_registro">Iniciar sesión</string>
     <string name="inicio_menu">Inicio</string>
     <string name="inicio_de_sesi_n_menu">Inicio de sesión</string>

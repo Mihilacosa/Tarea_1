@@ -3,11 +3,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center|top"
-    android:orientation="vertical"
-    tools:context=".Novela" >
+    tools:context=".Novela">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +45,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="24dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp">
 
             <TextView
                 android:id="@+id/textView20"
@@ -70,7 +70,9 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="60dp"
+            android:paddingRight="60dp">
 
             <TextView
                 android:id="@+id/textView19"
@@ -84,7 +86,8 @@
                 android:id="@+id/RecyclerCapitulos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
 
         </LinearLayout>
     </LinearLayout>

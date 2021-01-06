@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity{
                 for (int i = 0; i < response.length(); i++){
                     try {
                         jsonObject = response.getJSONObject(i);
-                        titulo = URLDecoder.decode(jsonObject.getString("titulo"), "UTF-8");
+                        titulo = new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8");
                         id = jsonObject.getString("id_novela");
                         imagen = jsonObject.getString("portada");
                         listaNovelas.add(new ListaNovelas(titulo, id, imagen));
@@ -90,8 +90,6 @@ public class MainActivity extends AppCompatActivity{
                 adapter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),"Seleccionado: " + listaNovelas.get(recyclerNovelas.getChildAdapterPosition(v)).getTitulo(), Toast.LENGTH_SHORT).show();
-
                         String id_N = listaNovelas.get(recyclerNovelas.getChildAdapterPosition(v)).getId();
 
                         Intent i = new Intent(MainActivity.this, Novela.class);
