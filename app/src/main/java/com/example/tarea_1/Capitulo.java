@@ -26,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class Capitulo extends AppCompatActivity {
@@ -52,10 +51,8 @@ public class Capitulo extends AppCompatActivity {
         if(mAuth.getCurrentUser() != null){
             SharedPreferences datos_usu = getSharedPreferences("usuario_login", Context.MODE_PRIVATE);
             usuario = datos_usu.getString("usuario", "");
-            if (usuario != "") {
+            if (!usuario.equals("")) {
                 setTitle("Hola " + usuario);
-            }else{
-
             }
         }
 
@@ -79,7 +76,7 @@ public class Capitulo extends AppCompatActivity {
         Capitulos_id = (ArrayList<Integer>) args.getSerializable("ARRAYLIST");
 
         for (int i = 0; i < Capitulos_id.size(); i++){
-            if(Capitulos_id.get(i) == id_cap){
+            if(Capitulos_id.get(i).equals(id_cap)){
                 posicion = i;
             }
         }
@@ -249,7 +246,7 @@ public class Capitulo extends AppCompatActivity {
         MenuItem itemln = mimenu.findItem(R.id.login);
         MenuItem itemr = mimenu.findItem(R.id.registro);
 
-        if (usuario != "") {
+        if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
             itemr.setVisible(false);

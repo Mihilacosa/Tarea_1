@@ -1,6 +1,6 @@
 package com.example.tarea_1;
 
-public class ListaNovelas {
+public class  ListaNovelas {
     private String titulo;
     private String id;
     private String imagen;

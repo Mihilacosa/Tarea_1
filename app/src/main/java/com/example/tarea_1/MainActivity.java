@@ -1,6 +1,5 @@
 package com.example.tarea_1;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,12 +7,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,15 +19,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
@@ -43,6 +36,7 @@ public class MainActivity extends AppCompatActivity{
     MenuItem itemlt;
     MenuItem itemln;
     MenuItem itemr;
+    MenuItem subir_novelas;
 
     ArrayList<ListaNovelas> listaNovelas = new ArrayList<>();
     RecyclerView recyclerNovelas;
@@ -63,7 +57,7 @@ public class MainActivity extends AppCompatActivity{
             }
         }
 
-        registerForContextMenu(findViewById(R.id.main));
+        //registerForContextMenu(findViewById(R.id.main));
     }
 
     private void Cargar(String URL) {
@@ -83,7 +77,7 @@ public class MainActivity extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                recyclerNovelas = (RecyclerView) findViewById(R.id.ReyclerId);
+                recyclerNovelas = findViewById(R.id.ReyclerId);
                 recyclerNovelas.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
                 AdaptadorNovelas adapter = new AdaptadorNovelas(listaNovelas);
@@ -175,11 +169,13 @@ public class MainActivity extends AppCompatActivity{
         itemlt = mimenu.findItem(R.id.logout);
         itemln = mimenu.findItem(R.id.login);
         itemr = mimenu.findItem(R.id.registro);
+        subir_novelas = mimenu.findItem(R.id.subir_novela);
 
         if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
             itemr.setVisible(false);
+            subir_novelas.setVisible(true);
         }else{
             itemln.setVisible(true);
             itemr.setVisible(true);
@@ -213,6 +209,15 @@ public class MainActivity extends AppCompatActivity{
         if(id == R.id.registro){
 
             Intent i = new Intent(this, Registro.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
+        if(id == R.id.subir_novela){
+
+            Intent i = new Intent(this, SubirNovela.class);
 
             startActivity(i);
 

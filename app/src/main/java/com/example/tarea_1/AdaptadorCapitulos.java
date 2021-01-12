@@ -56,7 +56,7 @@ public class AdaptadorCapitulos extends RecyclerView.Adapter<AdaptadorCapitulos.
 
         public ViewHolderCapitulos(@NonNull View itemView) {
             super(itemView);
-            capitulos = (TextView) itemView.findViewById(R.id.capitulox);
+            capitulos = itemView.findViewById(R.id.capitulox);
         }
     }
 }

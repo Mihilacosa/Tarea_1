@@ -47,4 +47,8 @@
     <string name="contenido_capitulo">Chapter contents</string>
     <string name="indice">Index</string>
     <string name="portada_de_la_novela">Novel cover</string>
+    <string name="mis_novelas">" My novels"</string>
+    <string name="cerrar_sesi_n">Log out</string>
+    <string name="subir_novela">Upload novel</string>
+    <string name="subir_capitulo">Upload chapters</string>
 </resources>

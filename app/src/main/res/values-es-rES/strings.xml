@@ -47,4 +47,8 @@
     <string name="contenido_capitulo">Contenido capitulo</string>
     <string name="indice">Indice</string>
     <string name="portada_de_la_novela">Portada de la novela</string>
+    <string name="mis_novelas">Mis Novelas</string>
+    <string name="subir_novela">Subir novela</string>
+    <string name="subir_capitulo">Subir capitulo</string>
+    <string name="cerrar_sesi_n">Cerrar sesión</string>
 </resources>

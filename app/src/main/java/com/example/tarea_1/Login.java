@@ -1,8 +1,5 @@
 package com.example.tarea_1;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,40 +9,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.common.internal.GetServiceRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
     private EditText email;
     private EditText contrasena;
     private Button Login;
-    private String id_usuario;
-    private String usuario;
     private FirebaseAuth mAuth;
 
     @Override
@@ -55,7 +42,7 @@ public class Login extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button Registrarse = (Button) findViewById(R.id.RegistroInicio);
+        Button Registrarse = findViewById(R.id.RegistroInicio);
         Registrarse.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -84,8 +71,7 @@ public class Login extends AppCompatActivity {
 
                             startActivity(i);
                         } else {
-                            Toast.makeText(Login.this, "Email o contraseña incorrectos",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -109,7 +95,8 @@ public class Login extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         editor.putString("usuario", jsonObject.getString("usuario"));
-                        editor.commit();
+                        editor.putString("id", jsonObject.getString("id_usuario"));
+                        editor.apply();
                     } catch (JSONException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

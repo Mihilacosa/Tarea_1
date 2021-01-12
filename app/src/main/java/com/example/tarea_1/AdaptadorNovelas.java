@@ -63,9 +63,9 @@ public class AdaptadorNovelas extends RecyclerView.Adapter<AdaptadorNovelas.View
 
         public ViewHolderNovelas(@NonNull View itemView) {
             super(itemView);
-            Titulo = (TextView) itemView.findViewById(R.id.titulox);
-            id = (TextView) itemView.findViewById(R.id.id_novelax);
-            imagen = (ImageView) itemView.findViewById(R.id.portadax);
+            Titulo = itemView.findViewById(R.id.titulox);
+            id = itemView.findViewById(R.id.id_novelax);
+            imagen = itemView.findViewById(R.id.portadax);
         }
     }
 }

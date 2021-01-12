@@ -42,7 +42,7 @@ public class Registro extends AppCompatActivity {
     private EditText NuevaContrasena;
     private EditText NuevaContrasena2;
     private FirebaseAuth mAuth;
-
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,13 +64,12 @@ public class Registro extends AppCompatActivity {
         NuevaContrasena = findViewById(R.id.CrearContrasena1);
         NuevaContrasena2 = findViewById(R.id.ConbContrasena1);
 
-
-        Button CrearCuenta = (Button) findViewById(R.id.bCrearCuenta);
+        Button CrearCuenta = findViewById(R.id.bCrearCuenta);
         CrearCuenta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 String usuario =  NuevoUsuario.getText().toString();
-                String email = NuevoEmail.getText().toString();
+                email = NuevoEmail.getText().toString();
                 String Contrasena = NuevaContrasena.getText().toString();
                 String Contrasena2 = NuevaContrasena2.getText().toString();
 
@@ -107,7 +106,6 @@ public class Registro extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 EnvioInfoCrearCuenta("https://tnowebservice.000webhostapp.com/NuevoUsuario.php");
 
-                                EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + email);
 
                                 Intent i = new Intent(Registro.this, MainActivity.class);
 
@@ -136,7 +134,7 @@ public class Registro extends AppCompatActivity {
                     try {
                         jsonObject = response.getJSONObject(i);
                         editor.putString("usuario", jsonObject.getString("usuario"));
-                        editor.commit();
+                        editor.apply();
                     } catch (JSONException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -167,6 +165,7 @@ public class Registro extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + email);
                 Toast.makeText(getApplicationContext(), "Cuenta creada", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {

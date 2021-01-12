@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,9 +30,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Novela extends AppCompatActivity {
     public static final String ID_CAPITULO = "com.com.example.tarea_1.ID_CAPITULO";
@@ -63,14 +59,12 @@ public class Novela extends AppCompatActivity {
             usuario = datos_usu.getString("usuario", "");
             if (!usuario.equals("")) {
                 setTitle("Hola " + usuario);
-            }else{
-
             }
         }
 
         Intent i = getIntent();
 
-        if(i.getStringExtra(MainActivity.ID_NOVELA) == ""){
+        if(i.getStringExtra(MainActivity.ID_NOVELA).equals("")){
             id_novela = i.getStringExtra(Capitulo.ID_NOVELA);
         }else{
             id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
@@ -93,7 +87,7 @@ public class Novela extends AppCompatActivity {
         a.putExtra(ID_CAPITULO, id_capitulo);
         a.putExtra(ID_NOVELA, id_novela);
         Bundle args = new Bundle();
-        args.putSerializable("ARRAYLIST",(Serializable)Capitulos_id);
+        args.putSerializable("ARRAYLIST", Capitulos_id);
         a.putExtra("BUNDLE",args);
         startActivity(a);
     }
@@ -141,7 +135,7 @@ public class Novela extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-                recyclerCapitulos = (RecyclerView) findViewById(R.id.RecyclerCapitulos);
+                recyclerCapitulos = findViewById(R.id.RecyclerCapitulos);
                 recyclerCapitulos.setLayoutManager(new LinearLayoutManager(Novela.this));
 
                 AdaptadorCapitulos adapter = new AdaptadorCapitulos(Lista);
