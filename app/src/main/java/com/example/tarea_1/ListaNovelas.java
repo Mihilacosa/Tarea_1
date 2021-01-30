@@ -4,15 +4,17 @@ public class  ListaNovelas {
     private String titulo;
     private String id;
     private String imagen;
+    private String resena;
 
     public ListaNovelas() {
 
     }
 
-    public ListaNovelas(String titulo, String id, String imagen) {
+    public ListaNovelas(String titulo, String id, String imagen, String resena) {
         this.titulo = titulo;
         this.id = id;
         this.imagen = imagen;
+        this.resena = resena;
     }
 
     public String getTitulo() {
@@ -37,5 +39,13 @@ public class  ListaNovelas {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getResena() {
+        return resena;
+    }
+
+    public void setResena(String resena) {
+        this.resena = resena;
     }
 }

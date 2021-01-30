@@ -1,14 +1,25 @@
 package com.example.tarea_1;
 
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
     public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
 
     private  String usuario = "";
-    String titulo, id, imagen;
+    String titulo, id, imagen, resena;
 
     MenuItem itemlt;
     MenuItem itemln;
@@ -40,6 +51,7 @@ public class MainActivity extends AppCompatActivity{
 
     ArrayList<ListaNovelas> listaNovelas = new ArrayList<>();
     RecyclerView recyclerNovelas;
+    AdaptadorNovelas adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +68,6 @@ public class MainActivity extends AppCompatActivity{
                 setTitle("Hola " + usuario);
             }
         }
-
         //registerForContextMenu(findViewById(R.id.main));
     }
 
@@ -71,7 +82,8 @@ public class MainActivity extends AppCompatActivity{
                         titulo = new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8");
                         id = jsonObject.getString("id_novela");
                         imagen = jsonObject.getString("portada");
-                        listaNovelas.add(new ListaNovelas(titulo, id, imagen));
+                        resena = new String(jsonObject.getString("resena").getBytes("ISO-8859-1"), "UTF-8");
+                        listaNovelas.add(new ListaNovelas(titulo, id, imagen, resena));
 
                     } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -80,7 +92,7 @@ public class MainActivity extends AppCompatActivity{
                 recyclerNovelas = findViewById(R.id.ReyclerId);
                 recyclerNovelas.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-                AdaptadorNovelas adapter = new AdaptadorNovelas(listaNovelas);
+                adapter = new AdaptadorNovelas(listaNovelas);
                 adapter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -93,6 +105,8 @@ public class MainActivity extends AppCompatActivity{
                         startActivity(i);
                     }
                 });
+
+
                 recyclerNovelas.setAdapter(adapter);
             }
         }, new Response.ErrorListener() {
@@ -105,62 +119,6 @@ public class MainActivity extends AppCompatActivity{
         requestQueue.add(jsonArrayRequest);
     }
 
-    //Menu context
-/*
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-
-        switch (v.getId()){
-            case R.id.card0:
-                menu.setHeaderTitle(this.titulo_novela0.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena0);
-                break;
-            case R.id.card1:
-                menu.setHeaderTitle(this.titulo_novela1.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena1);
-                break;
-            case R.id.card2:
-                menu.setHeaderTitle(this.titulo_novela2.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena2);
-                break;
-            case R.id.card3:
-                menu.setHeaderTitle(this.titulo_novela3.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena3);
-                break;
-            case R.id.card4:
-                menu.setHeaderTitle(this.titulo_novela4.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena4);
-                break;
-            case R.id.card5:
-                menu.setHeaderTitle(this.titulo_novela5.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena5);
-                break;
-            case R.id.card6:
-                menu.setHeaderTitle(this.titulo_novela6.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena6);
-                break;
-            case R.id.card7:
-                menu.setHeaderTitle(this.titulo_novela7.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena7);
-                break;
-            case R.id.card8:
-                menu.setHeaderTitle(this.titulo_novela8.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena8);
-                break;
-            case R.id.card9:
-                menu.setHeaderTitle(this.titulo_novela9.getText());
-                menu.findItem(R.id.context_resena).setTitle((CharSequence) resena9);
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + v.getId());
-        }
-
-        inflater.inflate(R.menu.menu_contextual, menu);
-    }
-*/
     //Menu normal
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
@@ -179,6 +137,7 @@ public class MainActivity extends AppCompatActivity{
         }else{
             itemln.setVisible(true);
             itemr.setVisible(true);
+            subir_novelas.setVisible(false);
         }
 
         return true;
@@ -236,5 +195,24 @@ public class MainActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(opciones_menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case 120:
+                String resena2 = adapter.mostrarResena(item.getGroupId());
+                Dialog dialog = new Dialog(MainActivity.this);
+                dialog.setContentView(R.layout.resenya_activity_main);
+                TextView txt = (TextView)dialog.findViewById(R.id.resenya);
+                txt.setText(resena2);
+                dialog.show();
+                return true;
+            case 121:
+                return true;
+
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 }

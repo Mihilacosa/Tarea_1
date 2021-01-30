@@ -1,6 +1,7 @@
 package com.example.tarea_1;
 
 import android.net.Uri;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,16 +57,31 @@ public class AdaptadorNovelas extends RecyclerView.Adapter<AdaptadorNovelas.View
         }
     }
 
-    public class ViewHolderNovelas extends RecyclerView.ViewHolder {
+    public class ViewHolderNovelas extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
 
         TextView Titulo, id;
         ImageView imagen;
+        CardView card;
 
         public ViewHolderNovelas(@NonNull View itemView) {
             super(itemView);
             Titulo = itemView.findViewById(R.id.titulox);
             id = itemView.findViewById(R.id.id_novelax);
             imagen = itemView.findViewById(R.id.portadax);
+            card = itemView.findViewById(R.id.cardx);
+            card.setOnCreateContextMenuListener(this);
+
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            menu.setHeaderTitle("Select The Action");
+            menu.add(this.getAdapterPosition(), 120, 0, "Reseña");
+        }
+    }
+
+    public String mostrarResena (int position){
+        String resena = listaNovelas.get(position).getResena();
+        return resena;
     }
 }
