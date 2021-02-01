@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity{
             opciones_menu.setVisible(false);
             itemln.setVisible(true);
             itemr.setVisible(true);
+            subir_novelas.setVisible(false);
 
             return true;
         }

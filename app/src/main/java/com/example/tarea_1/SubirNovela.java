@@ -138,6 +138,13 @@ public class SubirNovela extends AppCompatActivity {
                 Id_novela("https://tnowebservice.000webhostapp.com/Id_novela.php?titulo=" + titulo.getText().toString() + "&autor=" + autor.getText().toString());
                 SubirImagen(bitmap);
                 UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+
+                long start = System.currentTimeMillis();
+                long end = start + 2*1000; // 60 seconds * 1000 ms/sec
+                while (System.currentTimeMillis() < end) {
+                    Intent i = new Intent(SubirNovela.this, MainActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }
