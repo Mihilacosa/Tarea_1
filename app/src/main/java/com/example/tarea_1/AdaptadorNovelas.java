@@ -75,7 +75,7 @@ public class AdaptadorNovelas extends RecyclerView.Adapter<AdaptadorNovelas.View
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("Select The Action");
+            menu.setHeaderTitle("Seleccione una opción");
             menu.add(this.getAdapterPosition(), 120, 0, "Reseña");
         }
     }

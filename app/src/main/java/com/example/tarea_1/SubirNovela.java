@@ -88,6 +88,9 @@ public class SubirNovela extends AppCompatActivity {
     TextView contenido_cap;
     Button enviar;
 
+    RequestQueue requestQueue;
+    RequestQueue requestQueue2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -306,7 +309,9 @@ public class SubirNovela extends AppCompatActivity {
             genero += checkBox40.getText() + ", ";
         }
 
-        genero = genero.substring(0, genero.length() - 2);
+        if(!genero.equals("")) {
+            genero = genero.substring(0, genero.length() - 2);
+        }
     }
 
     public void tipo_cap_seleccionado() {
@@ -388,33 +393,16 @@ public class SubirNovela extends AppCompatActivity {
         return byteArrayOutputStream.toByteArray();
     }
 
-    public String getPath(Uri uri) {
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        cursor.moveToFirst();
-        String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
-        cursor.close();
-
-        cursor = getContentResolver().query(
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-        cursor.moveToFirst();
-        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-        cursor.close();
-
-        return path;
-    }
-
     private void Subir(String URL) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), "Subido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubirNovela.this, "Subido", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubirNovela.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -434,7 +422,7 @@ public class SubirNovela extends AppCompatActivity {
                 return parametros;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
@@ -443,36 +431,38 @@ public class SubirNovela extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = response.getJSONObject(0);
-                    id_novela = jsonObject.getString("id_novela");
-                    contenido_cap.setText(id_novela);
-                    imagename = "id_" + id_novela;
-                } catch (JSONException e){
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+                        id_novela = jsonObject.getString("id_novela");
+                        //contenido_cap.setText(id_novela);
+                        imagename = "id_" + id_novela;
+                    } catch (JSONException e) {
+                        Toast.makeText(SubirNovela.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "ERROR al recibir id de la novela", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubirNovela.this, "ERROR al recibir id de la novela", Toast.LENGTH_SHORT).show();
             }
         });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
+        requestQueue2 = Volley.newRequestQueue(this);
+        requestQueue2.add(jsonArrayRequest);
     }
 
     private void SubirImagen(final Bitmap bitmap) {
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, "https://tnowebservice.000webhostapp.com/Subir_portada.php", new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
-                Toast.makeText(getApplicationContext(), "Imagen subida", Toast.LENGTH_LONG).show();
+                Toast.makeText(SubirNovela.this, "Imagen subida", Toast.LENGTH_LONG).show();
             }
         },
         new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(SubirNovela.this, error.getMessage(), Toast.LENGTH_LONG).show();
                 Log.e("GotError","" + error.getMessage());
             }
         }) {
@@ -491,12 +481,12 @@ public class SubirNovela extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(getApplicationContext(), "Subido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubirNovela.this, "Subido", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubirNovela.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -507,7 +497,7 @@ public class SubirNovela extends AppCompatActivity {
                 return parametros;
             }
         };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
