@@ -96,7 +96,8 @@
                     android:layout_height="165dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginLeft="3dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/no_img" />
 
                 <Button
                     android:id="@+id/btn_portada"

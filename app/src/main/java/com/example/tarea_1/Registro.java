@@ -190,6 +190,12 @@ public class Registro extends AppCompatActivity {
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);
+
+        MenuItem play = mimenu.findItem(R.id.play);
+        MenuItem pause = mimenu.findItem(R.id.pause);
+        play.setVisible(false);
+        pause.setVisible(false);
+
         return true;
     }
 

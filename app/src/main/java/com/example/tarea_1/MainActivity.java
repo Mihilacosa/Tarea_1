@@ -1,25 +1,17 @@
 package com.example.tarea_1;
 
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +40,7 @@ public class MainActivity extends AppCompatActivity{
     MenuItem itemln;
     MenuItem itemr;
     MenuItem subir_novelas;
+    MenuItem modificar_novelas;
 
     ArrayList<ListaNovelas> listaNovelas = new ArrayList<>();
     RecyclerView recyclerNovelas;
@@ -92,7 +85,7 @@ public class MainActivity extends AppCompatActivity{
                 recyclerNovelas = findViewById(R.id.ReyclerId);
                 recyclerNovelas.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-                adapter = new AdaptadorNovelas(listaNovelas);
+                adapter = new AdaptadorNovelas(listaNovelas, MainActivity.this);
                 adapter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -128,16 +121,24 @@ public class MainActivity extends AppCompatActivity{
         itemln = mimenu.findItem(R.id.login);
         itemr = mimenu.findItem(R.id.registro);
         subir_novelas = mimenu.findItem(R.id.subir_novela);
+        modificar_novelas = mimenu.findItem(R.id.modificarNovelas);
+
+        MenuItem play = mimenu.findItem(R.id.play);
+        MenuItem pause = mimenu.findItem(R.id.pause);
+        play.setVisible(false);
+        pause.setVisible(false);
 
         if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
             itemr.setVisible(false);
             subir_novelas.setVisible(true);
+            modificar_novelas.setVisible(true);
         }else{
             itemln.setVisible(true);
             itemr.setVisible(true);
             subir_novelas.setVisible(false);
+            modificar_novelas.setVisible(false);
         }
 
         return true;
@@ -183,6 +184,15 @@ public class MainActivity extends AppCompatActivity{
             return true;
         }
 
+        if(id == R.id.modificarNovelas){
+
+            Intent i = new Intent(this, ModificarNovelas.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
         if(id == R.id.logout){
 
             FirebaseAuth.getInstance().signOut();
@@ -191,6 +201,7 @@ public class MainActivity extends AppCompatActivity{
             itemln.setVisible(true);
             itemr.setVisible(true);
             subir_novelas.setVisible(false);
+            modificar_novelas.setVisible(false);
 
             return true;
         }

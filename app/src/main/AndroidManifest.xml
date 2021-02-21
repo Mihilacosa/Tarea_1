@@ -14,6 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tarea_1">
+        <activity android:name=".ModificarNovela"></activity>
+        <activity android:name=".ModificarNovelas" />
         <activity
             android:name=".SubirNovela"
             android:screenOrientation="fullSensor" />
@@ -31,7 +33,8 @@
             android:screenOrientation="fullSensor" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="fullSensor" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -67,7 +67,12 @@ public class Novela extends AppCompatActivity {
         if(i.getStringExtra(MainActivity.ID_NOVELA).equals("")){
             id_novela = i.getStringExtra(Capitulo.ID_NOVELA);
         }else{
-            id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
+            if(!i.getStringExtra(SubirNovela.ID_NOVELA).equals("")){
+                id_novela = i.getStringExtra(SubirNovela.ID_NOVELA);
+            }else{
+                id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
+            }
+
         }
 
         CargarNovela("https://tnowebservice.000webhostapp.com/Novela_seleccionada.php?id_novela=" + id_novela);
@@ -171,6 +176,11 @@ public class Novela extends AppCompatActivity {
         MenuItem itemlt = mimenu.findItem(R.id.logout);
         MenuItem itemln = mimenu.findItem(R.id.login);
         MenuItem itemr = mimenu.findItem(R.id.registro);
+
+        MenuItem play = mimenu.findItem(R.id.play);
+        MenuItem pause = mimenu.findItem(R.id.pause);
+        play.setVisible(false);
+        pause.setVisible(false);
 
         if (!usuario.equals("")) {
             itemlt.setVisible(true);

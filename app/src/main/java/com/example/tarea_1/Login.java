@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,11 +35,13 @@ public class Login extends AppCompatActivity {
     private EditText contrasena;
     private Button Login;
     private FirebaseAuth mAuth;
+    CheckBox humano;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        humano = findViewById(R.id.humano);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -58,24 +61,27 @@ public class Login extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Email = email.getText().toString();
-                String Contrasena = contrasena.getText().toString();
+                if(humano.isChecked()) {
+                    String Email = email.getText().toString();
+                    String Contrasena = contrasena.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(Email, Contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + Email);
+                    mAuth.signInWithEmailAndPassword(Email, Contrasena).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                EnvioLogin("https://tnowebservice.000webhostapp.com/Login.php?email=" + Email);
 
-                            Intent i = new Intent(Login.this, MainActivity.class);
+                                Intent i = new Intent(Login.this, MainActivity.class);
 
-                            startActivity(i);
-                        } else {
-                            Toast.makeText(Login.this, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                                startActivity(i);
+                            } else {
+                                Toast.makeText(Login.this, "Email o contraseña incorrectos", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-
+                    });
+                }else{
+                    Toast.makeText(Login.this, "Debe de ser humano", Toast.LENGTH_SHORT).show();
+                }
 
 
             }
@@ -119,8 +125,12 @@ public class Login extends AppCompatActivity {
     }
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
-
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);
+
+        MenuItem play = mimenu.findItem(R.id.play);
+        MenuItem pause = mimenu.findItem(R.id.pause);
+        play.setVisible(false);
+        pause.setVisible(false);
 
         return true;
     }

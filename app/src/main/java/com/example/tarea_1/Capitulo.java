@@ -3,6 +3,7 @@ package com.example.tarea_1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +40,10 @@ public class Capitulo extends AppCompatActivity {
     private Integer id_cap;
     private ScrollView scroll;
 
+    MediaPlayer mediaPlayer;
+    MenuItem play;
+    MenuItem pause;
+
     private  String usuario = "";
     private FirebaseAuth mAuth;
 
@@ -55,6 +60,9 @@ public class Capitulo extends AppCompatActivity {
                 setTitle("Hola " + usuario);
             }
         }
+
+        mediaPlayer = MediaPlayer.create(this, R.raw.relaxing_instrumental);
+        mediaPlayer.start();
 
         Button Anterior = findViewById(R.id.Anterior);
         Button Indice = findViewById(R.id.Indice);
@@ -246,6 +254,10 @@ public class Capitulo extends AppCompatActivity {
         MenuItem itemln = mimenu.findItem(R.id.login);
         MenuItem itemr = mimenu.findItem(R.id.registro);
 
+        play = mimenu.findItem(R.id.play);
+        pause = mimenu.findItem(R.id.pause);
+        play.setVisible(false);
+
         if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
@@ -262,7 +274,23 @@ public class Capitulo extends AppCompatActivity {
 
         int id = opciones_menu.getItemId();
 
+        if(id == R.id.pause){
+            mediaPlayer.pause();
+            pause.setVisible(false);
+            play.setVisible(true);
+        }
+
+        if(id == R.id.play){
+            mediaPlayer.start();
+            play.setVisible(false);
+            pause.setVisible(true);
+        }
+
         if(id == R.id.inicio){
+
+            mediaPlayer.pause();
+            pause.setVisible(false);
+            play.setVisible(true);
 
             Intent i = new Intent(this, MainActivity.class);
 
@@ -273,6 +301,10 @@ public class Capitulo extends AppCompatActivity {
 
         if(id == R.id.login){
 
+            mediaPlayer.pause();
+            pause.setVisible(false);
+            play.setVisible(true);
+
             Intent i = new Intent(this, Login.class);
 
             startActivity(i);
@@ -282,6 +314,10 @@ public class Capitulo extends AppCompatActivity {
 
         if(id == R.id.registro){
 
+            mediaPlayer.pause();
+            pause.setVisible(false);
+            play.setVisible(true);
+
             Intent i = new Intent(this, Registro.class);
 
             startActivity(i);
@@ -290,6 +326,10 @@ public class Capitulo extends AppCompatActivity {
         }
 
         if(id == R.id.logout){
+
+            mediaPlayer.pause();
+            pause.setVisible(false);
+            play.setVisible(true);
 
             FirebaseAuth.getInstance().signOut();
             Intent i = new Intent(this, MainActivity.class);

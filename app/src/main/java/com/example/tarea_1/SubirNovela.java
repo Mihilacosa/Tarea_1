@@ -1,33 +1,37 @@
 package com.example.tarea_1;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -46,15 +50,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SubirNovela extends AppCompatActivity {
+    public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
 
-    private  String usuario = "";
+    private String usuario = "";
     String id_usuario = "";
     String id_novela = "";
 
@@ -62,6 +65,8 @@ public class SubirNovela extends AppCompatActivity {
     MenuItem itemln;
     MenuItem itemr;
     MenuItem subir_novelas;
+    private final static String CHANNEL_ID = "NOTIFICACION";
+    private final static int NOTIFICACION_ID = 0;
 
     private static int SELECT_PICTURE = 2;
 
@@ -71,7 +76,7 @@ public class SubirNovela extends AppCompatActivity {
     Button portada;
     Uri selectedImageURI;
     String rutaImagen;
-    Bitmap bitmap;
+    Bitmap bitmap = null;
     String imagename;
     TextView nombre_alt;
     TextView autor;
@@ -110,6 +115,7 @@ public class SubirNovela extends AppCompatActivity {
         tipo1 = findViewById(R.id.nuevo_cap_1);
         contenido_cap = findViewById(R.id.nuevo_contenido_cap);
         enviar = findViewById(R.id.btnEnviar_novela);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_img);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
@@ -135,18 +141,26 @@ public class SubirNovela extends AppCompatActivity {
                 tipo_cap_seleccionado();
                 generos();
                 Subir("https://tnowebservice.000webhostapp.com/Subir_novela.php");
-                Id_novela("https://tnowebservice.000webhostapp.com/Id_novela.php?titulo=" + titulo.getText().toString() + "&autor=" + autor.getText().toString());
+
+                Id_novela("https://tnowebservice.000webhostapp.com/Id_novela.php?titulo=" + titulo.getText().toString());
+
                 SubirImagen(bitmap);
                 UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+
 
                 long start = System.currentTimeMillis();
                 long end = start + 2*1000; // 60 seconds * 1000 ms/sec
                 while (System.currentTimeMillis() < end) {
+                    createNotificationChannel();
+                    createNotification();
+
                     Intent i = new Intent(SubirNovela.this, MainActivity.class);
                     startActivity(i);
                 }
             }
         });
+
+
     }
 
     public void generos_inicio() {
@@ -385,7 +399,6 @@ public class SubirNovela extends AppCompatActivity {
                         Picasso.get().load(selectedImageURI).noPlaceholder().centerCrop().fit().into(portada_img);
                         //Log.d("filePath", String.valueOf(rutaImagen));
                         bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageURI);
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -404,7 +417,7 @@ public class SubirNovela extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(SubirNovela.this, "Subido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SubirNovela.this, "Subido ", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -453,17 +466,50 @@ public class SubirNovela extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(SubirNovela.this, "ERROR al recibir id de la novela", Toast.LENGTH_SHORT).show();
+                Log.e("GotError","                 " + error.getMessage());
             }
         });
         requestQueue2 = Volley.newRequestQueue(this);
         requestQueue2.add(jsonArrayRequest);
     }
 
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Noticacion";
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+    private void createNotification(){
+        Intent i = new Intent(this, Novela.class);
+        i.putExtra(ID_NOVELA, id_novela);
+
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, i, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_ok);
+        builder.setContentTitle("Novela subida correctamente");
+        builder.setContentText("Novela - " + titulo.getText() + " - subida");
+        builder.setColor(Color.BLUE);
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        builder.setLights(Color.MAGENTA, 1000, 1000);
+        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+        builder.setContentIntent(resultPendingIntent);
+        builder.setAutoCancel(true);
+
+        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
+        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
+    }
+
     private void SubirImagen(final Bitmap bitmap) {
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, "https://tnowebservice.000webhostapp.com/Subir_portada.php", new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
-                Toast.makeText(SubirNovela.this, "Imagen subida", Toast.LENGTH_LONG).show();
+                //Toast.makeText(SubirNovela.this, "Imagen subida", Toast.LENGTH_LONG).show();
             }
         },
         new Response.ErrorListener() {
@@ -488,7 +534,7 @@ public class SubirNovela extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(SubirNovela.this, "Subido", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(SubirNovela.this, "Subido", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -518,6 +564,11 @@ public class SubirNovela extends AppCompatActivity {
         itemr = mimenu.findItem(R.id.registro);
         subir_novelas = mimenu.findItem(R.id.subir_novela);
 
+        MenuItem play = mimenu.findItem(R.id.play);
+        MenuItem pause = mimenu.findItem(R.id.pause);
+        play.setVisible(false);
+        pause.setVisible(false);
+
         if (!usuario.equals("")) {
             itemlt.setVisible(true);
             itemln.setVisible(false);
@@ -526,6 +577,7 @@ public class SubirNovela extends AppCompatActivity {
         }else{
             itemln.setVisible(true);
             itemr.setVisible(true);
+            subir_novelas.setVisible(false);
         }
 
         return true;
