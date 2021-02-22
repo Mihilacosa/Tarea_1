@@ -1,5 +1,6 @@
 package com.example.tarea_1;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,16 +64,13 @@ public class Novela extends AppCompatActivity {
         }
 
         Intent i = getIntent();
+        onNewIntent(getIntent());
 
         if(i.getStringExtra(MainActivity.ID_NOVELA).equals("")){
             id_novela = i.getStringExtra(Capitulo.ID_NOVELA);
-        }else{
-            if(!i.getStringExtra(SubirNovela.ID_NOVELA).equals("")){
-                id_novela = i.getStringExtra(SubirNovela.ID_NOVELA);
-            }else{
-                id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
-            }
-
+        }
+        if(!i.getStringExtra(MainActivity.ID_NOVELA).equals("")){
+            id_novela = i.getStringExtra(MainActivity.ID_NOVELA);
         }
 
         CargarNovela("https://tnowebservice.000webhostapp.com/Novela_seleccionada.php?id_novela=" + id_novela);
@@ -81,6 +79,19 @@ public class Novela extends AppCompatActivity {
         Titulo_novela = findViewById(R.id.Titulo_dif);
         resena = findViewById(R.id.Resena_novela_selec);
         portada = findViewById(R.id.Portada_novela_selec);
+
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            if (extras.containsKey("ID_NOVELA")) {
+                id_novela = extras.getString("ID_NOVELA");
+            }
+        }
+
 
     }
 

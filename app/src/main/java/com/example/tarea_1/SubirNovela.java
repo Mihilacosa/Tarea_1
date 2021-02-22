@@ -142,17 +142,9 @@ public class SubirNovela extends AppCompatActivity {
                 generos();
                 Subir("https://tnowebservice.000webhostapp.com/Subir_novela.php");
 
-                Id_novela("https://tnowebservice.000webhostapp.com/Id_novela.php?titulo=" + titulo.getText().toString());
-
-                SubirImagen(bitmap);
-                UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
-
-
                 long start = System.currentTimeMillis();
                 long end = start + 2*1000; // 60 seconds * 1000 ms/sec
                 while (System.currentTimeMillis() < end) {
-                    createNotificationChannel();
-                    createNotification();
 
                     Intent i = new Intent(SubirNovela.this, MainActivity.class);
                     startActivity(i);
@@ -417,7 +409,7 @@ public class SubirNovela extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(SubirNovela.this, "Subido ", Toast.LENGTH_SHORT).show();
+                asignarId(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -442,35 +434,20 @@ public class SubirNovela extends AppCompatActivity {
                 return parametros;
             }
         };
+
         requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
-    private void Id_novela(String URL) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
-                for (int i = 0; i < response.length(); i++) {
-                    try {
-                        jsonObject = response.getJSONObject(i);
-                        id_novela = jsonObject.getString("id_novela");
-                        //contenido_cap.setText(id_novela);
-                        imagename = "id_" + id_novela;
-                    } catch (JSONException e) {
-                        Toast.makeText(SubirNovela.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(SubirNovela.this, "ERROR al recibir id de la novela", Toast.LENGTH_SHORT).show();
-                Log.e("GotError","                 " + error.getMessage());
-            }
-        });
-        requestQueue2 = Volley.newRequestQueue(this);
-        requestQueue2.add(jsonArrayRequest);
+    private void asignarId(String id){
+        id_novela = id;
+        imagename = "id_" + id_novela;
+
+        SubirImagen(bitmap);
+        UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+
+        createNotificationChannel();
+        createNotification();
     }
 
     private void createNotificationChannel(){
@@ -487,7 +464,6 @@ public class SubirNovela extends AppCompatActivity {
         i.putExtra(ID_NOVELA, id_novela);
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, i, PendingIntent.FLAG_UPDATE_CURRENT);
-
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
         builder.setSmallIcon(R.drawable.ic_ok);

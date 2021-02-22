@@ -2,6 +2,7 @@ package com.example.tarea_1;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,14 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,6 +34,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModificarNovelas extends AppCompatActivity {
     public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
@@ -43,7 +50,9 @@ public class ModificarNovelas extends AppCompatActivity {
 
     ArrayList<ListaNovelas> listaNovelas = new ArrayList<>();
     RecyclerView recyclerNovelas;
-    AdaptadorNovelas adapter;
+    AdaptadorNovelasModificar adapter;
+
+    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +96,7 @@ public class ModificarNovelas extends AppCompatActivity {
                 recyclerNovelas = findViewById(R.id.RecyclerModificar);
                 recyclerNovelas.setLayoutManager(new LinearLayoutManager(ModificarNovelas.this));
 
-                adapter = new AdaptadorNovelas(listaNovelas, ModificarNovelas.this);
+                adapter = new AdaptadorNovelasModificar(listaNovelas, ModificarNovelas.this);
                 adapter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -207,14 +216,52 @@ public class ModificarNovelas extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case 120:
-                String resena2 = adapter.mostrarResena(item.getGroupId());
-                Dialog dialog = new Dialog(ModificarNovelas.this);
-                dialog.setContentView(R.layout.resenya_activity_main);
-                TextView txt = (TextView)dialog.findViewById(R.id.resenya);
-                txt.setText(resena2);
-                dialog.show();
-                return true;
-            case 121:
+                String id_novela_eliminar = adapter.mostrarId(item.getGroupId());
+
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://tnowebservice.000webhostapp.com/Eliminar_novela.php", new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+
+                                    }
+                                }, new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(ModificarNovelas.this, error.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }) {
+                                    @Override
+                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                        Map<String, String> parametros = new HashMap<String, String>();
+                                        parametros.put("id_novela", id_novela_eliminar);
+                                        return parametros;
+                                    }
+                                };
+
+                                requestQueue = Volley.newRequestQueue(ModificarNovelas.this);
+                                requestQueue.add(stringRequest);
+
+                                Intent i = new Intent(ModificarNovelas.this, ModificarNovelas.class);
+
+                                startActivity(i);
+
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                //No button clicked
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Estasn seguro de eliminar la novela?").setPositiveButton("Si", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
                 return true;
 
             default:
