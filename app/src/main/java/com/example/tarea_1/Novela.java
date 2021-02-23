@@ -149,7 +149,7 @@ public class Novela extends AppCompatActivity {
                         resena.setText(new String(jsonObject.getString("resena").getBytes("ISO-8859-1"), "UTF-8"));
                         Picasso.get().load(jsonObject.getString("portada")).into(portada);
 
-                        if(jsonObject.getString("nombre_alternativo") == ""){
+                        if(jsonObject.getString("nombre_alternativo").isEmpty()){
 
                         }else {
                             tit_alt.setVisibility(View.VISIBLE);
@@ -158,7 +158,7 @@ public class Novela extends AppCompatActivity {
 
                         autor.setText(autor.getText() + new String(jsonObject.getString("autor").getBytes("ISO-8859-1"), "UTF-8"));
 
-                        if(jsonObject.getString("artista") == ""){
+                        if(jsonObject.getString("artista").isEmpty()){
 
                         }else {
                             artista.setVisibility(View.VISIBLE);
@@ -166,7 +166,7 @@ public class Novela extends AppCompatActivity {
                         }
 
 
-                        if(jsonObject.getString("traductor") == ""){
+                        if(jsonObject.getString("traductor").isEmpty()){
 
                         }else {
                             traductor.setVisibility(View.VISIBLE);
