@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -135,11 +136,44 @@ public class SubirNovela extends AppCompatActivity {
             }
         });
 
+        tipo_cap_seleccionado();
+
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tipo_cap_seleccionado();
+
+                if(TextUtils.isEmpty(titulo.getText())){
+                    titulo.setError("El título es obligatorio");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(resena.getText())){
+                    resena.setError("La reseña es obligatoria");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(autor.getText())){
+                    autor.setError("El autor es obligatorio");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(titulo_cap.getText())){
+                    titulo_cap.setError("El titulo de capitulo es obligatorio");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(contenido_cap.getText())){
+                    contenido_cap.setError("El contenido es obligatorio");
+                    return;
+                }
+
                 generos();
+
+                if(TextUtils.isEmpty(genero)){
+                    Toast.makeText(SubirNovela.this, "Debe de seleccionar como mínimo un genero.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Subir("https://tnowebservice.000webhostapp.com/Subir_novela.php");
 
                 long start = System.currentTimeMillis();

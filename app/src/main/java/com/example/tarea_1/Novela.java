@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,8 @@ public class Novela extends AppCompatActivity {
     private String id_novela;
 
     RecyclerView recyclerCapitulos;
+    LinearLayout desplegable, Adesplegar;
+    TextView tit_alt, autor, artista, traductor, genero, fecha;
 
     private  String usuario = "";
 
@@ -53,6 +56,21 @@ public class Novela extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_novela);
+
+        tit_alt = findViewById(R.id.Novela_titulo_alternativo);
+        autor = findViewById(R.id.Novela_autor);
+        artista = findViewById(R.id.Novela_artista);
+        traductor = findViewById(R.id.Novela_traductor);
+        genero = findViewById(R.id.Novela_genero);
+        fecha = findViewById(R.id.Novela_fecha);
+
+        desplegable = findViewById(R.id.desplegable);
+        Adesplegar = findViewById(R.id.Adesplegar);
+        Adesplegar.setVisibility(View.GONE);
+
+        tit_alt.setVisibility(View.GONE);
+        artista.setVisibility(View.GONE);
+        traductor.setVisibility(View.GONE);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
@@ -80,6 +98,17 @@ public class Novela extends AppCompatActivity {
         resena = findViewById(R.id.Resena_novela_selec);
         portada = findViewById(R.id.Portada_novela_selec);
 
+        desplegable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Adesplegar.getVisibility() == View.GONE){
+                    Adesplegar.setVisibility(View.VISIBLE);
+                }else{
+                    Adesplegar.setVisibility(View.GONE);
+                }
+
+            }
+        });
     }
 
     @Override
@@ -119,6 +148,34 @@ public class Novela extends AppCompatActivity {
                         Titulo_novela.setText(new String(jsonObject.getString("titulo").getBytes("ISO-8859-1"), "UTF-8"));
                         resena.setText(new String(jsonObject.getString("resena").getBytes("ISO-8859-1"), "UTF-8"));
                         Picasso.get().load(jsonObject.getString("portada")).into(portada);
+
+                        if(jsonObject.getString("nombre_alternativo") == ""){
+
+                        }else {
+                            tit_alt.setVisibility(View.VISIBLE);
+                            tit_alt.setText(tit_alt.getText() + new String(jsonObject.getString("nombre_alternativo").getBytes("ISO-8859-1"), "UTF-8"));
+                        }
+
+                        autor.setText(autor.getText() + new String(jsonObject.getString("autor").getBytes("ISO-8859-1"), "UTF-8"));
+
+                        if(jsonObject.getString("artista") == ""){
+
+                        }else {
+                            artista.setVisibility(View.VISIBLE);
+                            artista.setText(artista.getText() + new String(jsonObject.getString("artista").getBytes("ISO-8859-1"), "UTF-8"));
+                        }
+
+
+                        if(jsonObject.getString("traductor") == ""){
+
+                        }else {
+                            traductor.setVisibility(View.VISIBLE);
+                            traductor.setText(traductor.getText() + new String(jsonObject.getString("traductor").getBytes("ISO-8859-1"), "UTF-8"));
+                        }
+
+                        genero.setText(genero.getText() + new String(jsonObject.getString("genero").getBytes("ISO-8859-1"), "UTF-8"));
+                        fecha.setText(fecha.getText() + new String(jsonObject.getString("fecha_subida").getBytes("ISO-8859-1"), "UTF-8"));
+
                     } catch (JSONException | UnsupportedEncodingException e){
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

@@ -74,7 +74,7 @@ public class Registro extends AppCompatActivity {
                 String Contrasena2 = NuevaContrasena2.getText().toString();
 
                 if(TextUtils.isEmpty(usuario)){
-                    NuevoUsuario.setError("El usuario debe cotener minimo un carácter");
+                    NuevoUsuario.setError("El usuario debe contener minimo un carácter");
                     return;
                 }
 

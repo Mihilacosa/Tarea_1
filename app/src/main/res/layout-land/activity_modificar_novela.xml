@@ -19,7 +19,7 @@
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
             android:gravity="center"
-            android:text="@string/subir_novela"
+            android:text="Modificar novela"
             android:textSize="30sp" />
 
         <LinearLayout
@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/nuevo_titulo"
+                android:id="@+id/modi_nuevo_titulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -49,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:id="@+id/textView4"
@@ -60,7 +60,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/nueva_resena"
+                android:id="@+id/modi_nueva_resena"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -73,8 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:id="@+id/textView2"
@@ -91,21 +91,19 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/nueva_portada"
-                    android:layout_width="55dp"
+                    android:id="@+id/modi_nueva_portada"
+                    android:layout_width="120dp"
                     android:layout_height="165dp"
                     android:layout_marginStart="3dp"
                     android:layout_marginLeft="3dp"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/no_img" />
+                    app:srcCompat="@drawable/no_img"  />
 
                 <Button
-                    android:id="@+id/btn_portada"
-                    android:layout_width="125dp"
+                    android:id="@+id/modi_btn_portada"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
                     android:text="Seleccionar imagen" />
             </LinearLayout>
         </LinearLayout>
@@ -115,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:id="@+id/textView5"
@@ -126,7 +124,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/nuevo_nombre_alt"
+                android:id="@+id/modi_nuevo_nombre_alt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -138,8 +136,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:id="@+id/textView6"
@@ -149,7 +147,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/nuevo_autor"
+                android:id="@+id/modi_nuevo_autor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -161,8 +159,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:id="@+id/textView7"
@@ -172,7 +170,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/nuevo_artista"
+                android:id="@+id/modi_nuevo_artista"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -184,8 +182,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
                 android:id="@+id/textView8"
@@ -195,7 +193,7 @@
                 android:textSize="16sp" />
 
             <EditText
-                android:id="@+id/nuevo_traductor"
+                android:id="@+id/modi_nuevo_traductor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -207,11 +205,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp">
 
             <TextView
-                android:id="@+id/textView17"
+                android:id="@+id/modi_generos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -225,358 +223,275 @@
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <CheckBox
-                        android:id="@+id/checkBox1"
+                        android:id="@+id/modi_checkBox1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Acción" />
 
                     <CheckBox
-                        android:id="@+id/checkBox3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Artes Marciales" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Ciencia Ficción" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Deportes" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fantasía" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Gender Bender" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Histórico" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Josei" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Misterio" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox21"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Novela Japonesa" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Novela ligera" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox25"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Novela Web" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox27"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Recuerdo de vida" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox29"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seinen" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox31"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Shounen" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox33"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tragedia" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Vida escolar" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox37"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Xianxia" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox39"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Yaoi" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox40"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Yuri" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/checkBox2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Adulto" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox4"
+                        android:id="@+id/modi_checkBox4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Aventura" />
 
                     <CheckBox
-                        android:id="@+id/checkBox6"
+                        android:id="@+id/modi_checkBox7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Comedia" />
+                        android:text="Deportes" />
 
                     <CheckBox
-                        android:id="@+id/checkBox8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Drama" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox10"
+                        android:id="@+id/modi_checkBox10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ficción Romántica" />
 
                     <CheckBox
-                        android:id="@+id/checkBox12"
+                        android:id="@+id/modi_checkBox13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Harem" />
+                        android:text="Histórico" />
 
                     <CheckBox
-                        android:id="@+id/checkBox14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Horror" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox16"
+                        android:id="@+id/modi_checkBox16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Maduro" />
 
                     <CheckBox
-                        android:id="@+id/checkBox18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mecha" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox20"
+                        android:id="@+id/modi_checkBox20"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Novela China" />
 
                     <CheckBox
-                        android:id="@+id/checkBox22"
+                        android:id="@+id/modi_checkBox23"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Novela Koreana" />
+                        android:text="Novela ligera" />
 
                     <CheckBox
-                        android:id="@+id/checkBox24"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Novela original" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox26"
+                        android:id="@+id/modi_checkBox26"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Psicológico" />
 
                     <CheckBox
-                        android:id="@+id/checkBox28"
+                        android:id="@+id/modi_checkBox29"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Romance" />
+                        android:text="Seinen" />
 
                     <CheckBox
-                        android:id="@+id/checkBox30"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Shojo" />
-
-                    <CheckBox
-                        android:id="@+id/checkBox32"
+                        android:id="@+id/modi_checkBox32"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sobrenatural" />
 
                     <CheckBox
-                        android:id="@+id/checkBox34"
+                        android:id="@+id/modi_checkBox35"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Vampiros" />
+                        android:text="Vida escolar" />
 
                     <CheckBox
-                        android:id="@+id/checkBox36"
+                        android:id="@+id/modi_checkBox38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xuanhuan" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Adulto" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ciencia Ficción" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Drama" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender Bender" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Horror" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Misterio" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Novela Japonesa" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Novela original" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Recuerdo de vida" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shojo" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tragedia" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox36"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Wuxia" />
 
                     <CheckBox
-                        android:id="@+id/checkBox38"
+                        android:id="@+id/modi_checkBox39"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xuanhuan" />
+                        android:text="Yaoi" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Artes Marciales" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Comedia" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fantasía" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Harem" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Josei" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mecha" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Novela Koreana" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Novela Web" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Romance" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox31"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shounen" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox34"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vampiros" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox37"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Xianxia" />
+
+                    <CheckBox
+                        android:id="@+id/modi_checkBox40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yuri" />
                 </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView21"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="25dp"
-            android:gravity="center"
-            android:text="Primer capitulo"
-            android:textSize="30sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Titulo del capitulo"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/nuevo_titulo_cap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
-
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Capitulo"
-                android:textSize="16sp" />
-
-            <RadioGroup
-                android:id="@+id/tipo_cap"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="15dp">
-
-                <RadioButton
-                    android:id="@+id/nuevo_prologo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Prólogo" />
-
-                <RadioButton
-                    android:id="@+id/nuevo_cap_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Capitulo 1" />
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp">
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Contenido"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/nuevo_contenido_cap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine" />
-        </LinearLayout>
-
         <Button
-            android:id="@+id/btnEnviar_novela"
+            android:id="@+id/modi_btnEnviar_novela"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="150dp"
+            android:layout_marginLeft="150dp"
             android:layout_marginTop="25dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginRight="150dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:paddingLeft="150dp"
+            android:paddingRight="150dp"
             android:text="Enviar" />
     </LinearLayout>
 </ScrollView>
