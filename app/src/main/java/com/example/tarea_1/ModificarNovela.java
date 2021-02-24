@@ -157,7 +157,7 @@ public class ModificarNovela extends AppCompatActivity {
                     createNotificationChannel();
                     createNotification();
 
-                    Intent i = new Intent(ModificarNovela.this, MainActivity.class);
+                    Intent i = new Intent(ModificarNovela.this, ModificarNovelas.class);
                     startActivity(i);
                 }
             }
@@ -448,7 +448,7 @@ public class ModificarNovela extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(ModificarNovela.this, "Subido ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ModificarNovela.this, "Modificado", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override

@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -66,6 +67,7 @@ public class SubirNovela extends AppCompatActivity {
     MenuItem itemln;
     MenuItem itemr;
     MenuItem subir_novelas;
+    MenuItem modificar_novelas;
     private final static String CHANNEL_ID = "NOTIFICACION";
     private final static int NOTIFICACION_ID = 0;
 
@@ -93,6 +95,7 @@ public class SubirNovela extends AppCompatActivity {
     String tipo_cap = "";
     TextView contenido_cap;
     Button enviar;
+    ScrollView scrollNovela;
 
     RequestQueue requestQueue;
     RequestQueue requestQueue2;
@@ -117,6 +120,7 @@ public class SubirNovela extends AppCompatActivity {
         contenido_cap = findViewById(R.id.nuevo_contenido_cap);
         enviar = findViewById(R.id.btnEnviar_novela);
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_img);
+        scrollNovela = findViewById(R.id.ScrollSubirNovela);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
@@ -144,16 +148,19 @@ public class SubirNovela extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(titulo.getText())){
                     titulo.setError("El título es obligatorio");
+                    scrollNovela.smoothScrollTo(0, 0);
                     return;
                 }
 
                 if(TextUtils.isEmpty(resena.getText())){
                     resena.setError("La reseña es obligatoria");
+                    scrollNovela.smoothScrollTo(0, 0);
                     return;
                 }
 
                 if(TextUtils.isEmpty(autor.getText())){
                     autor.setError("El autor es obligatorio");
+                    scrollNovela.smoothScrollTo(0, 0);
                     return;
                 }
 
@@ -171,6 +178,7 @@ public class SubirNovela extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(genero)){
                     Toast.makeText(SubirNovela.this, "Debe de seleccionar como mínimo un genero.", Toast.LENGTH_SHORT).show();
+                    scrollNovela.smoothScrollTo(0, 2000);
                     return;
                 }
 
@@ -573,6 +581,7 @@ public class SubirNovela extends AppCompatActivity {
         itemln = mimenu.findItem(R.id.login);
         itemr = mimenu.findItem(R.id.registro);
         subir_novelas = mimenu.findItem(R.id.subir_novela);
+        modificar_novelas = mimenu.findItem(R.id.modificarNovelas);
 
         MenuItem play = mimenu.findItem(R.id.play);
         MenuItem pause = mimenu.findItem(R.id.pause);
@@ -584,10 +593,12 @@ public class SubirNovela extends AppCompatActivity {
             itemln.setVisible(false);
             itemr.setVisible(false);
             subir_novelas.setVisible(true);
+            modificar_novelas.setVisible(true);
         }else{
             itemln.setVisible(true);
             itemr.setVisible(true);
             subir_novelas.setVisible(false);
+            modificar_novelas.setVisible(false);
         }
 
         return true;
@@ -624,10 +635,18 @@ public class SubirNovela extends AppCompatActivity {
             return true;
         }
 
-
         if(id == R.id.subir_novela){
 
             Intent i = new Intent(this, SubirNovela.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
+        if(id == R.id.modificarNovelas){
+
+            Intent i = new Intent(this, ModificarNovelas.class);
 
             startActivity(i);
 
@@ -641,6 +660,8 @@ public class SubirNovela extends AppCompatActivity {
             opciones_menu.setVisible(false);
             itemln.setVisible(true);
             itemr.setVisible(true);
+            subir_novelas.setVisible(false);
+            modificar_novelas.setVisible(false);
 
             return true;
         }

@@ -45,11 +45,11 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:orientation="vertical"
             app:cardCornerRadius="8dp"
@@ -74,7 +74,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imgDesplegable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -91,6 +91,12 @@
                 android:layout_marginTop="25dp"
                 android:orientation="vertical"
                 android:padding="6dp" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@android:color/background_dark" />
 
                 <TextView
                     android:id="@+id/Novela_titulo_alternativo"
@@ -160,10 +166,22 @@
                 android:text="@string/contenido_reseña" />
         </LinearLayout>
 
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="24dp"
             android:layout_weight="1"
             android:orientation="vertical">

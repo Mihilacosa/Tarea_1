@@ -79,7 +79,7 @@
                     android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/imgDesplegable"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -93,11 +93,15 @@
                 android:id="@+id/Adesplegar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="12dp"
-                android:layout_marginLeft="12dp"
                 android:layout_marginTop="25dp"
                 android:orientation="vertical"
                 android:padding="6dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@android:color/background_dark" />
 
                 <TextView
                     android:id="@+id/Novela_titulo_alternativo"
@@ -169,6 +173,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/contenido_reseña" />
         </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            app:adSize="SMART_BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
 
         <LinearLayout
             android:layout_width="match_parent"

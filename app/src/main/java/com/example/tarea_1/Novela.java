@@ -4,16 +4,23 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +30,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
@@ -39,16 +52,23 @@ public class Novela extends AppCompatActivity {
     public static final String ID_NOVELA = "com.com.example.tarea_1.ID_NOVELA";
     private TextView Titulo_novela;
     private TextView resena;
-    private ImageView portada;
+    private ImageView portada, imgDespliegue;
     private ListView Lista_caps;
     private ArrayList<ListaCapitulos> Lista = new ArrayList<>();
     private ArrayList<Integer> Capitulos_id = new ArrayList<>();
     private String id_capitulo;
     private String id_novela;
 
+    MenuItem itemlt;
+    MenuItem itemln;
+    MenuItem itemr;
+    MenuItem subir_novelas;
+    MenuItem modificar_novelas;
+
     RecyclerView recyclerCapitulos;
     LinearLayout desplegable, Adesplegar;
     TextView tit_alt, autor, artista, traductor, genero, fecha;
+    private AdView mAdView;
 
     private  String usuario = "";
 
@@ -67,10 +87,21 @@ public class Novela extends AppCompatActivity {
         desplegable = findViewById(R.id.desplegable);
         Adesplegar = findViewById(R.id.Adesplegar);
         Adesplegar.setVisibility(View.GONE);
+        imgDespliegue = findViewById(R.id.imgDesplegable);
 
         tit_alt.setVisibility(View.GONE);
         artista.setVisibility(View.GONE);
         traductor.setVisibility(View.GONE);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser() != null){
@@ -99,11 +130,15 @@ public class Novela extends AppCompatActivity {
         portada = findViewById(R.id.Portada_novela_selec);
 
         desplegable.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 if(Adesplegar.getVisibility() == View.GONE){
+                    Adesplegar.setAnimation(AnimationUtils.loadAnimation(Novela.this, R.anim.slide));
+                    imgDespliegue.setImageDrawable(getDrawable(R.drawable.ic_arriba));
                     Adesplegar.setVisibility(View.VISIBLE);
                 }else{
+                    imgDespliegue.setImageDrawable(getDrawable(R.drawable.ic_abajo));
                     Adesplegar.setVisibility(View.GONE);
                 }
 
@@ -238,12 +273,13 @@ public class Novela extends AppCompatActivity {
     //Combio de activity menu
 
     @Override public boolean onCreateOptionsMenu(Menu mimenu){
-
         getMenuInflater().inflate(R.menu.menu_activity, mimenu);
 
-        MenuItem itemlt = mimenu.findItem(R.id.logout);
-        MenuItem itemln = mimenu.findItem(R.id.login);
-        MenuItem itemr = mimenu.findItem(R.id.registro);
+        itemlt = mimenu.findItem(R.id.logout);
+        itemln = mimenu.findItem(R.id.login);
+        itemr = mimenu.findItem(R.id.registro);
+        subir_novelas = mimenu.findItem(R.id.subir_novela);
+        modificar_novelas = mimenu.findItem(R.id.modificarNovelas);
 
         MenuItem play = mimenu.findItem(R.id.play);
         MenuItem pause = mimenu.findItem(R.id.pause);
@@ -254,9 +290,13 @@ public class Novela extends AppCompatActivity {
             itemlt.setVisible(true);
             itemln.setVisible(false);
             itemr.setVisible(false);
+            subir_novelas.setVisible(true);
+            modificar_novelas.setVisible(true);
         }else{
             itemln.setVisible(true);
             itemr.setVisible(true);
+            subir_novelas.setVisible(false);
+            modificar_novelas.setVisible(false);
         }
 
         return true;
@@ -293,12 +333,33 @@ public class Novela extends AppCompatActivity {
             return true;
         }
 
+        if(id == R.id.subir_novela){
+
+            Intent i = new Intent(this, SubirNovela.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
+        if(id == R.id.modificarNovelas){
+
+            Intent i = new Intent(this, ModificarNovelas.class);
+
+            startActivity(i);
+
+            return true;
+        }
+
         if(id == R.id.logout){
 
             FirebaseAuth.getInstance().signOut();
-            Intent i = new Intent(this, MainActivity.class);
-
-            startActivity(i);
+            setTitle("Tarea_1");
+            opciones_menu.setVisible(false);
+            itemln.setVisible(true);
+            itemr.setVisible(true);
+            subir_novelas.setVisible(false);
+            modificar_novelas.setVisible(false);
 
             return true;
         }
