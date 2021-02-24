@@ -1,21 +1,16 @@
 package com.example.tarea_1;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,15 +18,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -66,8 +57,6 @@ public class ModificarNovela extends AppCompatActivity {
     MenuItem itemln;
     MenuItem itemr;
     MenuItem subir_novelas;
-    private final static String CHANNEL_ID = "NOTIFICACION";
-    private final static int NOTIFICACION_ID = 0;
 
     private static int SELECT_PICTURE = 2;
 
@@ -77,8 +66,7 @@ public class ModificarNovela extends AppCompatActivity {
     TextView resena;
     ImageView portada_img;
     Button portada;
-    Uri selectedImageURI;
-    String rutaImagen;
+    Uri selectedImageURI, returnUri;
     Bitmap bitmap = null;
     String imagename;
     TextView nombre_alt;
@@ -90,12 +78,11 @@ public class ModificarNovela extends AppCompatActivity {
             checkBox11, checkBox12, checkBox13, checkBox14, checkBox15, checkBox16, checkBox18, checkBox19, checkBox20,
             checkBox21, checkBox22, checkBox23, checkBox24, checkBox25, checkBox26, checkBox27, checkBox28, checkBox29, checkBox30,
             checkBox31, checkBox32, checkBox33, checkBox34, checkBox35, checkBox36, checkBox37, checkBox38, checkBox39, checkBox40;
-    RadioButton tipo0, tipo1;
     Button enviar;
     TextView modi_generos;
+    String extension;
 
     RequestQueue requestQueue;
-    RequestQueue requestQueue2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +99,6 @@ public class ModificarNovela extends AppCompatActivity {
         traductor = findViewById(R.id.modi_nuevo_traductor);
         generos_inicio();
         enviar = findViewById(R.id.modi_btnEnviar_novela);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_img);
         modi_generos = findViewById(R.id.modi_generos);
 
         Intent i = getIntent();
@@ -147,15 +133,15 @@ public class ModificarNovela extends AppCompatActivity {
                 generos();
                 Subir("https://tnowebservice.000webhostapp.com/Subir_novela_modi.php");
 
-                SubirImagen(bitmap);
-                UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+                if(!(bitmap == null)){
+                    SubirImagen(bitmap);
+                    UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+                }
 
 
                 long start = System.currentTimeMillis();
                 long end = start + 2*1000; // 60 seconds * 1000 ms/sec
                 while (System.currentTimeMillis() < end) {
-                    createNotificationChannel();
-                    createNotification();
 
                     Intent i = new Intent(ModificarNovela.this, ModificarNovelas.class);
                     startActivity(i);
@@ -411,13 +397,12 @@ public class ModificarNovela extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        portada_img.setImageBitmap(null);
-        bitmap = null;
-
         if (resultCode == RESULT_OK) {
+            portada_img.setImageBitmap(null);
+            bitmap = null;
             if (requestCode == 1) {
                 bitmap = (Bitmap) data.getExtras().get("data");
-
+                extension = ".png";
                 portada_img.setImageBitmap(bitmap);
             } else {
 
@@ -434,6 +419,18 @@ public class ModificarNovela extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+
+                returnUri = data.getData();
+                Cursor returnCursor =
+                        getContentResolver().query(returnUri, null, null, null, null);
+
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+
+                extension = returnCursor.getString(nameIndex);
+
+                extension = extension.substring(extension.lastIndexOf("."));
+
             }
         }
     }
@@ -477,38 +474,6 @@ public class ModificarNovela extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void createNotificationChannel(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Noticacion";
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-    }
-
-    private void createNotification(){
-        Intent i = new Intent(this, Novela.class);
-        i.putExtra(ID_NOVELA, id_novela);
-
-        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1, i, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID);
-        builder.setSmallIcon(R.drawable.ic_ok);
-        builder.setContentTitle("Novela subida correctamente");
-        builder.setContentText("Novela - " + titulo.getText() + " - subida");
-        builder.setColor(Color.BLUE);
-        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        builder.setLights(Color.MAGENTA, 1000, 1000);
-        builder.setVibrate(new long[]{1000,1000,1000,1000,1000});
-        builder.setDefaults(Notification.DEFAULT_SOUND);
-        builder.setContentIntent(resultPendingIntent);
-        builder.setAutoCancel(true);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(NOTIFICACION_ID, builder.build());
-    }
-
     private void SubirImagen(final Bitmap bitmap) {
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, "https://tnowebservice.000webhostapp.com/Subir_portada.php", new Response.Listener<NetworkResponse>() {
             @Override
@@ -516,19 +481,19 @@ public class ModificarNovela extends AppCompatActivity {
                 //Toast.makeText(SubirNovela.this, "Imagen subida", Toast.LENGTH_LONG).show();
             }
         },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ModificarNovela.this, error.getMessage(), Toast.LENGTH_LONG).show();
-                        Log.e("GotError","" + error.getMessage());
-                    }
-                }) {
+        new Response.ErrorListener() {
             @Override
-            protected Map<String, DataPart> getByteData() {
-                Map<String, DataPart> params = new HashMap<>();
-                params.put("imagen", new DataPart(imagename + ".jpg", getFileDataFromDrawable(bitmap)));
-                return params;
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(ModificarNovela.this, error.getMessage(), Toast.LENGTH_LONG).show();
+                Log.e("GotError","" + error.getMessage());
             }
+        }) {
+        @Override
+        protected Map<String, DataPart> getByteData() {
+            Map<String, DataPart> params = new HashMap<>();
+            params.put("imagen", new DataPart(imagename + extension, getFileDataFromDrawable(bitmap)));
+            return params;
+        }
         };
         //adding the request to volley
         Volley.newRequestQueue(this).add(volleyMultipartRequest);
@@ -550,7 +515,7 @@ public class ModificarNovela extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("id", id_novela);
-                parametros.put("url", "https://tnowebservice.000webhostapp.com/img/id_" + id_novela + ".jpg");
+                parametros.put("url", "https://tnowebservice.000webhostapp.com/img/id_" + id_novela + extension);
                 return parametros;
             }
         };

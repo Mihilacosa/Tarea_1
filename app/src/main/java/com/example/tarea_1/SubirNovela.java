@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -78,7 +80,6 @@ public class SubirNovela extends AppCompatActivity {
     ImageView portada_img;
     Button portada;
     Uri selectedImageURI;
-    String rutaImagen;
     Bitmap bitmap = null;
     String imagename;
     TextView nombre_alt;
@@ -96,9 +97,9 @@ public class SubirNovela extends AppCompatActivity {
     TextView contenido_cap;
     Button enviar;
     ScrollView scrollNovela;
+    String extension;
 
     RequestQueue requestQueue;
-    RequestQueue requestQueue2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,6 @@ public class SubirNovela extends AppCompatActivity {
         tipo1 = findViewById(R.id.nuevo_cap_1);
         contenido_cap = findViewById(R.id.nuevo_contenido_cap);
         enviar = findViewById(R.id.btnEnviar_novela);
-        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_img);
         scrollNovela = findViewById(R.id.ScrollSubirNovela);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -414,13 +414,13 @@ public class SubirNovela extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        portada_img.setImageBitmap(null);
-        bitmap = null;
 
         if (resultCode == RESULT_OK) {
+            portada_img.setImageBitmap(null);
+            bitmap = null;
             if (requestCode == 1) {
                 bitmap = (Bitmap) data.getExtras().get("data");
-
+                extension = ".png";
                 portada_img.setImageBitmap(bitmap);
             } else {
 
@@ -437,6 +437,17 @@ public class SubirNovela extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+
+                Uri returnUri = data.getData();
+                Cursor returnCursor =
+                        getContentResolver().query(returnUri, null, null, null, null);
+
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                returnCursor.moveToFirst();
+
+                extension = returnCursor.getString(nameIndex);
+
+                extension = extension.substring(extension.lastIndexOf("."));
             }
         }
     }
@@ -485,8 +496,10 @@ public class SubirNovela extends AppCompatActivity {
         id_novela = id;
         imagename = "id_" + id_novela;
 
-        SubirImagen(bitmap);
-        UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+        if(!(bitmap == null)){
+            SubirImagen(bitmap);
+            UpdateURL("https://tnowebservice.000webhostapp.com/UpdateURL.php");
+        }
 
         createNotificationChannel();
         createNotification();
@@ -540,7 +553,7 @@ public class SubirNovela extends AppCompatActivity {
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
-                params.put("imagen", new DataPart(imagename + ".jpg", getFileDataFromDrawable(bitmap)));
+                params.put("imagen", new DataPart(imagename + extension, getFileDataFromDrawable(bitmap)));
                 return params;
             }
         };
@@ -564,7 +577,7 @@ public class SubirNovela extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("id", id_novela);
-                parametros.put("url", "https://tnowebservice.000webhostapp.com/img/id_" + id_novela + ".jpg");
+                parametros.put("url", "https://tnowebservice.000webhostapp.com/img/id_" + id_novela + extension);
                 return parametros;
             }
         };
